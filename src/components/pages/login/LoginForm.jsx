@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { auth } from '../../../config/firebase'
-import { 
-  signInWithEmailAndPassword,
-  onAuthStateChanged } from 'firebase/auth'
+import { signInWithEmailAndPassword } from 'firebase/auth'
 
 const LoginForm = () => {
 
@@ -15,7 +13,9 @@ const LoginForm = () => {
     try {
        signInWithEmailAndPassword(auth, email, password)
         .then(userCreds => {
-          console.log(userCreds)
+          auth.onAuthStateChanged(user => {
+            console.log(`user logged in: `, user)
+          })
         })
     } catch (error) {
       console.log(error)
@@ -25,9 +25,10 @@ const LoginForm = () => {
   const handleLogout = (e) => {
     e.preventDefault()
     auth.signOut()
-      .then(() => {
-        console.log('user has signed logged out')
-      })
+    auth.onAuthStateChanged(user => {
+        console.log(`user logged out:`, user)
+    })
+     
   }
   
   return (
