@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { db } from '../../../config/firebase'
-import { collection } from 'firebase/firestore'
+import { collection, addDoc } from 'firebase/firestore'
 import { auth } from '../../../config/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
@@ -20,7 +20,7 @@ const RegisterForm = () => {
     try {
       await createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
         .then(credentials => {
-          console.log(credentials)
+          users.addDoc(credentials.user.uid)
         })
     } catch (error) {
       console.log(error)

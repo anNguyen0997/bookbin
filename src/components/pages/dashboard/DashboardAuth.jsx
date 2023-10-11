@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import { auth } from '../../../config/firebase'
 import Home from '../home/Home'
 import UserDashBoard from './UserDashboard/UserDashBoard'
+import UserHome from './UserDashboard/UserHome'
 
 const Dashboard = () => {
 
@@ -19,12 +19,12 @@ const Dashboard = () => {
     })
 
   return (
-    <div className='bg-gray-500 w-full h-screen flex items-center justify-center'>
+    <div className='w-full h-screen flex items-center justify-center'>
 
       {
         loggedIn
         ?
-        <UserDashBoard />
+        <UserHome />
         :
         <Home />
       }
