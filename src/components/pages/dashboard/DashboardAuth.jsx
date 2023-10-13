@@ -3,6 +3,7 @@ import { auth } from '../../../config/firebase'
 import Home from '../home/Home'
 import UserDashBoard from './UserDashboard/UserDashBoard'
 import UserHome from './UserDashboard/UserHome'
+import Login from '../login/Login'
 
 const Dashboard = () => {
 
@@ -26,7 +27,7 @@ const Dashboard = () => {
         ?
         <UserHome />
         :
-        <Home />
+        <Login />
       }
 
     </div>

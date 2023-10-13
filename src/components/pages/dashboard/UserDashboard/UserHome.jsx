@@ -48,7 +48,7 @@ const UserHome = () => {
             {books.map((book) => (
                 <div key={book.id} className='flex flex-col items-center justify-start p-4 gap-1'>
                 <h1 className='text-center'>{book.volumeInfo.title}</h1>
-                <img className='w-[150px]' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
+                <img className='w-[95px]' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
 
                 <div className='flex flex-col gap-1'>
                     <button className='border rounded-lg px-1'>Want to Read</button>
