@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { auth } from '../../../../config/firebase'
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { db, auth } from '../../../../config/firebase'
 
 const UserHome = () => {
 
@@ -13,6 +14,18 @@ const UserHome = () => {
     const [books, setBooks] = useState([])
     const [userDIsplayName, setUserDisplayName] = useState('')
 
+    const [addedBook, setAddedBook] = useState({
+        etag: '',
+        id: '',
+        title: '',
+        authors: [],
+        description: '',
+        categories: [],
+        image: '',
+        pageCount: 0,
+        publishedDate: '',
+    })
+
     const callapi = () => {
         axios.get(`${baseURL}q=subject:${randomGenres}&printType=books&orderBy=newest&key=${API_KEY}`)
         .then(res => {
@@ -23,9 +36,20 @@ const UserHome = () => {
         .catch(err => console.log(err))
     }
 
+    const handleBookToWantToRead = async (book) => {
+        const userReference = doc(db, 'users', auth.currentUser.uid)
+        try {
+            await updateDoc(userReference, {
+                wantToRead: arrayUnion(book)
+            })
+        } catch (err) {
+            console.log(err)
+        }
+
+    }
+
     useEffect(() => {
         callapi()
-
         auth.onAuthStateChanged(user => {
             if (user) {
                 console.log(user)
@@ -48,11 +72,19 @@ const UserHome = () => {
             {books.map((book) => (
                 <div key={book.id} className='flex flex-col items-center justify-start p-4 gap-1'>
                 <h1 className='text-center'>{book.volumeInfo.title}</h1>
-                <img className='w-[95px]' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
+                <img className='w-[95px]' alt='book cover' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
 
                 <div className='flex flex-col gap-1'>
-                    <button className='border rounded-lg px-1'>Want to Read</button>
-                    <button className='border rounded-lg px-1'>Read</button>
+                    <button 
+                    className='border rounded-lg px-1'
+                    onClick={() => handleBookToWantToRead(book)}
+                    >Want to Read
+                    </button>
+
+                    <button 
+                    className='border rounded-lg px-1'
+                    >Read
+                    </button>
                 </div>
 
                 </div>
