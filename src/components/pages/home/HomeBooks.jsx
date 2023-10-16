@@ -7,6 +7,7 @@ const HomeBooks = () => {
 
     const genres = ['mystery', 'fantasy', 'romance', 'thriller', 'horror', 'fiction', 'nonfiction', 'travel', 'science', 'history', 'self-help', '']
     const randomGenres = genres[Math.floor(Math.random() * genres.length)]
+    const [books, setBooks] = useState([])
 
     const callapi = () => {
         axios.get(`${baseURL}q=subject:${randomGenres}&printType=books&orderBy=newest&key=${API_KEY}`)
@@ -22,7 +23,6 @@ const HomeBooks = () => {
         callapi()
     }, [])
 
-    const [books, setBooks] = useState([])
   return (
     <div className='bg-gray-500 w-9/12 rounded-xl p-6'>
 
@@ -30,12 +30,8 @@ const HomeBooks = () => {
           {books.map((book) => (
             <div key={book.id} className='flex flex-col items-center justify-start p-4 gap-1'>
               <h1 className='text-center'>{book.volumeInfo.title}</h1>
-              <img className='w-[150px]' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
+              <img className='w-[45px]' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
 
-              <div className='flex flex-col gap-1'>
-                <button className='border rounded-lg px-1'>Want to Read</button>
-                <button className='border rounded-lg px-1'>Read</button>
-              </div>
 
             </div>
           ))}

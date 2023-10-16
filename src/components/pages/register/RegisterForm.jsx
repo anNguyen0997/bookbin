@@ -15,6 +15,7 @@ const RegisterForm = () => {
   const [newUser, setNewUser] = useState({
     email: '',
     password: '',
+    currentlyReading: [],
     haveRead: [],
     wantToRead: []
   })
@@ -22,6 +23,7 @@ const RegisterForm = () => {
   const handleCreateUser = async () => {
     setNewUser({ ...newUser, haveRead: [] })
     setNewUser({ ...newUser, wantToRead: []})
+    setNewUser({ ...newUser, currentlyReading: []})
     try {
       await createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
         .then(credentials => {
