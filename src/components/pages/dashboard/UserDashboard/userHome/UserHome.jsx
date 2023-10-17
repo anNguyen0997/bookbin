@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
-import { db, auth } from '../../../../config/firebase'
+import { db, auth } from '../../../../../config/firebase'
+import UserNavbar from '../userNavbar/UserNavbar'
 
 const UserHome = () => {
     const baseURL = 'https://www.googleapis.com/books/v1/volumes?'
@@ -56,34 +57,46 @@ const UserHome = () => {
     }, [])
 
   return (
-    <div className='w-full h-full'>
-        <div className='flex flex-col'>
-        {books.map((book) => (
-            <div key={book.id} className='flex flex-row justify-start p-4 gap-1'>
-                
-                <img className='w-[50px]' alt='book cover' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
+    <div className='flex flex-col'>
 
-                <div className='flex flex-col gap-1'>
+        <UserNavbar />
 
-                    <h1 className='text-sm'>{book.volumeInfo.title}</h1>
-                    <h1 className='text-sm'>{book.volumeInfo.authors}</h1>
+        <div className='w-full flex flex-col justify-center
+        mt-[60px] md:mt-[85px]'>
 
-                    <button
-                        className=' text-sm border rounded-lg px-1'
-                        onClick={() => handleBookToWantToRead(book)}
-                    >Want to Read
-                    </button>
+            <div className='bg-gray-500 flex flex-col gap-2 p-2'>
 
-                    <button 
-                        className='text-sm border rounded-lg px-1'
-                        onClick={() => handleBookHaveRead(book)}
-                    >Read
-                    </button>
+                <div className='w-full flex gap-3 text-sm border-b pb-2'>
+                    <input placeholder='Title, genre, or author'
+                    className='p-2'> 
+                    </input>
+                </div>
+
+                <div className='flex flex-col gap-1 p-1
+                md:grid md:grid-cols-2 md:gap-4 md:p-4'>
+                    {books.map((book) => (
+                    <div key={book.id}
+                        className='flex flex-row items-center justify-start h-[110px]
+                        p-4 gap-2 border
+                        md:h-[190px]'>
+                        <div>
+                        <img
+                        src={book.volumeInfo.imageLinks.smallThumbnail} 
+                        className='w-[55px] md:w-[90px]' />
+                        </div>
+                    
+                        <div className='text-sm md:text-lg'>
+                        <h1 className='font-bold'>{book.volumeInfo.title}</h1>
+                        <p>by {book.volumeInfo.authors[0]}</p>
+                        </div>
+                    </div>
+                    ))}
                 </div>
 
             </div>
-        ))}
-        </div>
+
+      </div>
+
     </div>
   )
 }

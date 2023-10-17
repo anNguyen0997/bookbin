@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { auth } from '../../../config/firebase'
-import UserHome from './UserDashboard/UserHome'
-import Login from '../login/Login'
+import UserHome from './UserDashboard/userHome/UserHome'
 
 const Dashboard = () => {
 
@@ -18,7 +17,7 @@ const Dashboard = () => {
     })
 
   return (
-    <div className='w-full h-screen flex items-center justify-center'>
+    <>
 
       {
         loggedIn
@@ -28,7 +27,7 @@ const Dashboard = () => {
         <h1>sign in</h1>
       }
 
-    </div>
+    </>
   )
 }
 
