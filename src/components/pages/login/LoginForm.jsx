@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { auth } from '../../../config/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
 
@@ -6,6 +7,7 @@ const LoginForm = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const navigate = useNavigate()
 
   const handleLogin = (e) => {
     e.preventDefault()
@@ -14,7 +16,8 @@ const LoginForm = () => {
        signInWithEmailAndPassword(auth, email, password)
         .then(userCreds => {
           auth.onAuthStateChanged(user => {
-            console.log(`user logged in: `, user)
+            console.log(`user logged in`)
+            navigate('/userauthenticate')
           })
         })
     } catch (error) {
@@ -28,7 +31,6 @@ const LoginForm = () => {
     auth.onAuthStateChanged(user => {
         console.log(`user logged out:`, user)
     })
-     
   }
   
   return (
@@ -60,9 +62,9 @@ const LoginForm = () => {
                 onClick={handleLogin}
                 >Login</button>
 
-              {/* <button 
+              <button 
                 className='border rounded-lg h-6 text-sm'
-                onClick={handleLogout}>Logout</button> */}
+                onClick={handleLogout}>Logout</button>
 
               <a href='/register' className='text-[11px] md:text-lg'>Don't have an account?</a>
 

@@ -1,16 +1,12 @@
 import React, { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { db } from '../../../config/firebase'
-import { 
-  collection,
-  addDoc,
-  setDoc,
-  doc } 
-  from 'firebase/firestore'
+import { setDoc, doc } from 'firebase/firestore'
 import { auth } from '../../../config/firebase'
 import { createUserWithEmailAndPassword } from 'firebase/auth'
 
 const RegisterForm = () => {
-  const users = collection(db, 'users')
+  const navigate = useNavigate()
 
   const [newUser, setNewUser] = useState({
     email: '',
@@ -29,6 +25,7 @@ const RegisterForm = () => {
         .then(credentials => {
           console.log(credentials)
           setDoc(doc(db, 'users', credentials.user.uid), newUser)
+          navigate('/userauthenticate')
         })
     } catch (error) {
       console.log(error)

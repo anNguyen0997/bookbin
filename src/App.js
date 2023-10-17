@@ -5,6 +5,7 @@ import Register from '../src/components/pages/register/Register';
 import Login from '../src/components/pages/login/Login';
 import UserDashBoard from './components/pages/dashboard/UserDashboard/UserDashBoard';
 import Navbar from './components/pages/navbar/Navbar';
+import DashboardAuth from './components/pages/dashboard/DashboardAuth';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/register' Component={Register} />
           <Route path='/login' Component={Login} />
           <Route path='/dashboard' Component={UserDashBoard} />
+          <Route path='/userauthenticate' Component={DashboardAuth} />
         </Routes>
       </BrowserRouter>
       

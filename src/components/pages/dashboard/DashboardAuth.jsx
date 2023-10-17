@@ -25,7 +25,7 @@ const Dashboard = () => {
         ?
         <UserHome />
         :
-        <Login />
+        <h1>sign in</h1>
       }
 
     </div>
