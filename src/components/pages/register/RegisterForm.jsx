@@ -38,24 +38,24 @@ const RegisterForm = () => {
   return (
     <div className='w-full h-3/6 border rounded-xl
       lg:w-6/12 lg:h-full flex justify-center items-center p-16'>
-        <div className='flex flex-col w-9/12 gap-6'>
+        <div className='flex flex-col w-9/12 gap-2 md:gap-5'>
 
-          <h1 className='text-5xl font-bold text-center mb-10'>Welcome!</h1>
+          <h1 className='font-bold text-center mb-2 text-lg md:text-5xl'>Welcome!</h1>
 
           <input type='email'
-            className='rounded-lg h-12 text-xl px-4'
+            className='rounded-lg h-6 text-sm text-center md:h-10 md:text-xl md:py-5'
             placeholder='Enter Email'
             onChange={(e) =>
             setNewUser({ ...newUser, email: e.target.value })} />
 
           <input type='password'
-            className='rounded-lg h-12 text-xl px-4'
+            className='rounded-lg h-6 text-sm text-center md:h-10 md:text-xl md:py-5'
             placeholder='Enter Password'
             onChange={(e) =>
             setNewUser({ ...newUser, password: e.target.value })} />
 
-          <button className='border rounded-lg h-12 text-xl' onClick={handleCreateUser}>Register</button>
-          <a href='/login' className='text-lg'>Have an account?</a>
+          <button className='border rounded-lg h-6 text-sm md:h-10 md:text-xl' onClick={handleCreateUser}>Register</button>
+          <a href='/login' className='text-[11px] md:text-lg'>Have an account?</a>
 
         </div>
     </div>

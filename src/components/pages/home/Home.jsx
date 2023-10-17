@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import HomeBooks from './HomeBooks'
+import Navbar from '../navbar/Navbar'
 
 const Home = () => {
 
     const baseURL = 'https://www.googleapis.com/books/v1/volumes?'
     const API_KEY = 'AIzaSyAxCTsiPg28jac0Tufu0V1PNzTmc7cNc0A' 
 
-    const genres = ['mystery', 'fantasy', 'romance', 'thriller', 'horror', 'fiction', 'nonfiction', 'travel', 'science', 'history', 'self-help', '']
+    const genres = ['mystery', 'fantasy', 'romance', 'thriller', 'horror', 'fiction', 'nonfiction', 'travel', 'science', 'history', 'self-help',]
     const randomGenres = genres[Math.floor(Math.random() * genres.length)]
+    const [books, setBooks] = useState([])
 
     const callapi = () => {
         axios.get(`${baseURL}q=subject:${randomGenres}&printType=books&orderBy=newest&key=${API_KEY}`)
@@ -23,34 +24,45 @@ const Home = () => {
     useEffect(() => {
         callapi()
     }, [])
-
-    const [books, setBooks] = useState([])
-
+  
   return (
-    <div className='w-full h-screen flex items-center justify-center px-3 sm:px-6 gap-2 sm:gap-4'>
-      <div className='bg-gray-500 w-3/12 h-4/6 rounded-xl'>
-        <div className='w-full flex flex-col p-4 gap-4'>
+    <div className='flex flex-col'>
 
-          <input placeholder='Search'
-            className='p-2 rounded-md'> 
-          </input>
+      <Navbar />
 
-          <div className='flex flex-col gap-2'>
-            <h3 className='text-md sm:text-2xl font-semibold'>Genres</h3>
-            <ul className='flex flex-col gap-1'>
-              {genres.map((genre) => (
-                <li key={genre}
-                className='text-sm sm:text-lg'>
-                  {genre}
-                </li>
-              ))}
-            </ul>
+      <div className='w-full flex flex-col justify-center
+      mt-[60px] md:mt-[85px]'>
+
+        <div className='bg-gray-500 flex flex-col gap-2 p-2'>
+
+          <div className='w-full flex gap-3 text-sm border-b pb-2'>
+            <input placeholder='Title, genre, or author'
+            className='p-2'> 
+            </input>
           </div>
 
+          <div className='flex flex-col gap-1 p-1
+          md:grid md:grid-cols-2 md:gap-4 md:p-4'>
+            {books.map((book) => (
+              <div key={book.id}
+                className='flex flex-row items-center justify-start h-[110px]
+                p-4 gap-2 border
+                md:h-[190px]'>
+                <div>
+                  <img
+                  src={book.volumeInfo.imageLinks.smallThumbnail} 
+                  className='w-[55px] md:w-[90px]'></img>
+                </div>
+              
+                <div className='text-sm md:text-lg'>
+                  <h1 className='font-bold'>{book.volumeInfo.title}</h1>
+                  <p>by {book.volumeInfo.authors[0]}</p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
-
-      <HomeBooks />
 
     </div>
   )

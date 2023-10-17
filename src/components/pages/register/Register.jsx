@@ -22,8 +22,8 @@ const Register = () => {
             }>
             
             <div className='text-white text-center'>
-              <h1 className='text-6xl font-bold'>Start Your Reading Journey Here</h1>
-              <p className='mt-4 text-xl'>Read More!</p>
+              <h1 className='text-2xl font-bold md:text-5xl'>Start Your Reading Journey Here</h1>
+              <p className='mt-2 text-lg md:text-4xl'>Read More!</p>
             </div>
           </div>
 

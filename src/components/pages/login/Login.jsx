@@ -22,8 +22,8 @@ const Login = () => {
             }>
             
             <div className='text-white text-center'>
-              <h1 className='text-6xl font-bold'>Continue Your Reading Adventure</h1>
-              <p className='mt-4 text-xl'>Read More!</p>
+              <h1 className='text-2xl font-bold md:text-5xl'>Continue Your Reading Adventure</h1>
+              <p className='mt-2 text-lg md:text-4xl'>Read More!</p>
             </div>
           </div>
 
