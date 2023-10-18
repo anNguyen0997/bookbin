@@ -76,18 +76,30 @@ const UserHome = () => {
                 md:grid md:grid-cols-2 md:gap-4 md:p-4'>
                     {books.map((book) => (
                     <div key={book.id}
-                        className='flex flex-row items-center justify-start h-[110px]
-                        p-4 gap-2 border
-                        md:h-[190px]'>
+                    className='flex flex-row items-center justify-start h-[120px]
+                    p-4 gap-2 border
+                    md:h-[190px]'>
                         <div>
-                        <img
-                        src={book.volumeInfo.imageLinks.smallThumbnail} 
-                        className='w-[55px] md:w-[90px]' />
+                            <img
+                            src={book.volumeInfo.imageLinks.smallThumbnail} 
+                            className='w-[55px] md:w-[90px]' />
                         </div>
                     
                         <div className='text-sm md:text-lg'>
-                        <h1 className='font-bold'>{book.volumeInfo.title}</h1>
-                        <p>by {book.volumeInfo.authors[0]}</p>
+                            <h1 className='font-bold'>{book.volumeInfo.title}</h1>
+                            <p>by {book.volumeInfo.authors[0]}</p>
+                            <div className='flex text-sm md:text-lg gap-2 my-2'>
+                                <button 
+                                className='border rounded-md py-1 px-2'
+                                onClick={() => handleBookToWantToRead(book)}>
+                                    Want to Read
+                                </button>
+                                <button 
+                                className='border rounded-md py-1 px-2'
+                                onClick={() => handleBookHaveRead(book)}>
+                                    Have Read
+                                </button>
+                            </div>
                         </div>
                     </div>
                     ))}

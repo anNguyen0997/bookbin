@@ -14,23 +14,15 @@ const LoginForm = () => {
 
     try {
        signInWithEmailAndPassword(auth, email, password)
-        .then(userCreds => {
+        .then(() => {
           auth.onAuthStateChanged(user => {
             console.log(`user logged in`)
-            navigate('/userauthenticate')
+            navigate('/userhome')
           })
         })
     } catch (error) {
       console.log(error)
     }
-  }
-
-  const handleLogout = (e) => {
-    e.preventDefault()
-    auth.signOut()
-    auth.onAuthStateChanged(user => {
-        console.log(`user logged out:`, user)
-    })
   }
   
   return (
@@ -61,10 +53,6 @@ const LoginForm = () => {
                 className='border rounded-lg h-6 text-sm md:h-10 md:text-xl'
                 onClick={handleLogin}
                 >Login</button>
-
-              <button 
-                className='border rounded-lg h-6 text-sm'
-                onClick={handleLogout}>Logout</button>
 
               <a href='/register' className='text-[11px] md:text-lg'>Don't have an account?</a>
 

@@ -1,17 +1,30 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { auth } from '../../../../../config/firebase'
 
 const UserNavbar = () => {
+  const navigate = useNavigate()
   const links = [
     {name: 'Profile', link: '/profile'},
     {name: 'Discover', link: '/discover'},
     {name: 'My books', link: '/mybooks'},
-    {name: 'Logout', link: '/'}
   ]
 
   const [menuToggle, setMenuToggle] = useState(false)
   const handleMenuToggle = () => {
     setMenuToggle(!menuToggle)
+  }
+
+  const [toggleLogoutModal, setToggleLogoutModal] = useState(false)
+  const toggleModal = () => {
+    setToggleLogoutModal(true)
+  }
+
+  const handleLogout = () => {
+    auth.signOut().then(() => {
+      console.log('user logged out')
+      navigate('/')
+    })
   }
 
   return (
@@ -35,14 +48,45 @@ const UserNavbar = () => {
                 {
                     links.map((link) => (
                         <li key={link.name} 
-                        className=' text-sm py-3 px-8 md:text-lg'>
+                        className='text-sm py-3 px-5 md:text-lg'>
                             <Link to={link.link} className=''>{link.name}</Link>
                         </li>
                     ))
                 }
+                <button 
+                className='text-sm py-3 px-5 md:text-lg'
+                onClick={() => setToggleLogoutModal(true)}
+                >Logout
+                </button>
             </ul>
 
         </div>
+
+        <div className={!toggleLogoutModal ? `hidden`:  `fixed inset-0 w-full h-full
+        flex justify-center items-center
+        backdrop-blur-sm`}>
+          <div className='flex flex-col justify-center items-center 
+          w-9/12 h-2/6 bg-white rounded-lg gap-6
+          '>
+                <div className='text-center px-16'>
+                  <h1>Are you sure you want to Logout?</h1>
+                </div>
+                <div className='flex flex-row gap-4'>
+                  <button 
+                  className='border py-1 px-2 rounded-md'
+                  onClick={() => setToggleLogoutModal(false)}>
+                    Cancel
+                  </button>
+
+                  <button 
+                  className='border py-1 px-2 rounded-md'
+                  onClick={handleLogout}
+                  >Logout
+                  </button>
+                </div>
+          </div>
+        </div>
+
     </div>
   )
 }
