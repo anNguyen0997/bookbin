@@ -5,9 +5,8 @@ import { auth } from '../../../../../config/firebase'
 const UserNavbar = () => {
   const navigate = useNavigate()
   const links = [
-    {name: 'Profile', link: '/profile'},
-    {name: 'Discover', link: '/discover'},
-    {name: 'My books', link: '/mybooks'},
+    {name: 'Profile', link: '/-profile'},
+    {name: 'Discover', link: '/discover'}
   ]
 
   const [menuToggle, setMenuToggle] = useState(false)
@@ -16,9 +15,6 @@ const UserNavbar = () => {
   }
 
   const [toggleLogoutModal, setToggleLogoutModal] = useState(false)
-  const toggleModal = () => {
-    setToggleLogoutModal(true)
-  }
 
   const handleLogout = () => {
     auth.signOut().then(() => {
@@ -29,7 +25,7 @@ const UserNavbar = () => {
 
   return (
     <div className='w-full fixed'>
-        <div className='bg-white flex flex-row items-center justify-between 
+        <div className='bg-gray-400 flex flex-row items-center justify-between 
         py-4 px-8 border-b-2 border-b-gray
         md:flex md:px-14 lg:px-16'>
 

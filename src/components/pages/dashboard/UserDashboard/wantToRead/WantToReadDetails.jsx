@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { db, auth } from '../../../../../config/firebase'
 import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore'
+import UserNavbar from '../userNavbar/UserNavbar'
 
 const WantToReadDetails = () => {
     const [userBooks, setUserBooks] = useState([])
@@ -41,30 +42,43 @@ const WantToReadDetails = () => {
     }, [])
     
   return (
-    <div className='bg-gray-500 w-full h-full'>
-        <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-            {userBooks.map((book) => (
-                <div key={book.id} className='flex flex-col items-center justify-start p-4 gap-1'>
-                    <h1 className='text-center'>{book.volumeInfo.title}</h1>
-                    <img className='w-[95px]' alt='book cover' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
+    <div className='flex flex-col'>
 
-                    <div className='flex flex-col gap-1'>
-                        <button 
-                        className='border rounded-lg px-1'
-                        // onClick={() => )}
-                        >Show more
-                        </button>
+        <UserNavbar />
 
-                        <button 
-                        className='border rounded-lg px-1'
-                        onClick={() => handleRemoveBook(book)}
-                        >Remove
-                        </button>
-                    </div>
+        <div className='w-full flex flex-col justify-center mt-[60px] md:mt-[85px]
+        p-3 gap-2 border-b border-black'>
 
+        {userBooks.map((book) => (
+            <div key={book.id} className='h-[150px] rounded-lg flex flex-row gap-6 p-3'>
+                <div className='flex justify-center items-center'>
+                    <img alt='book cover'
+                    className='w-9/12'
+                    src={book.volumeInfo.imageLinks.smallThumbnail}></img>
                 </div>
-            ))}
+
+                <div className='flex flex-col justify-center items-start'>
+                    <div className='flex flex-col'>
+                    <h2 className='font-bold text-md md:text-lg'>{book.volumeInfo.title}</h2>
+                    <p className='text-sm md:text-md'>by {book.volumeInfo.authors[0]}</p>
+                </div>
+
+                <div className='flex flex-col text-sm md:text-md mt-2 gap-1'>
+                    <button
+                    className='bg-gray-400 text-white border rounded-lg p-1'>
+                    + Currently Reading
+                    </button>
+
+                    <button
+                    className='w-10/12 bg-gray-400 text-white border rounded-lg p-1'>
+                    Remove Book
+                    </button>
+                </div>
+
+          </div>
         </div>
+      ))}
+    </div>
     </div>
   )
 }

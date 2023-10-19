@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { db, auth } from '../../../../../config/firebase'
 import { doc, getDoc } from 'firebase/firestore'
 
 const WantToRead = () => {
     const [userBooks, setUserBooks] = useState([])
     const [numberOfBooks, setNumberOfBooks] = useState(0)
+    const navigate = useNavigate()
     
     const getUser = async() => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
@@ -18,11 +20,15 @@ const WantToRead = () => {
             console.log('this user does not exist')
         }
     }
+
+    const handleShowMore = () => {
+        navigate('/-wanttoread')
+    }
     
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             if (user) {
-                console.log(user)
+                // console.log(user)
                 getUser()
             } else {
                 console.log('there are no users signed in')
@@ -31,22 +37,35 @@ const WantToRead = () => {
     }, [])
     
   return (
-    <div className='w-full'>
-        <div className='flex flex-row items-center justify-start'>
+    <div className='w-full flex flex-col justify-center
+    p-3 gap-2 border-b border-black'>
 
+        <div className='flex flex-row items-center justify-start
+        p-3 gap-2'>
+            
             {userBooks.map((book) => (
-                <div key={book.id} className='flex flex-row items-center justify-start p-4 gap-1'>
-                    
-                    <img className='w-[50px]' alt='book cover' src={book.volumeInfo.imageLinks.smallThumbnail}></img>
-
-                </div>            
+                <div key={book.id}>
+                <img
+                    className='w-8/12'
+                    alt='book cover' 
+                    src={book.volumeInfo.imageLinks.smallThumbnail} />
+                </div>
             ))}
 
-            <div>
-                <h4>Want to Read</h4>
-                <p>{numberOfBooks} books</p>
-            </div>
+            <div className='flex flex-col justify-center items-start'>
+                <div>
+                    <h4 className='font-bold text-lg md:text-xl'>Want to Read</h4>
+                    <p className='text-md text-gray-500'>{numberOfBooks} books</p>
+                </div>
 
+                <button
+                    className='bg-gray-500 text-white rounded-lg p-2 mt-4
+                    hover:bg-gray-300'
+                    onClick={handleShowMore}> 
+                    Show More
+                </button>
+            </div>
+            
         </div>
     </div>
   )

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Navbar from '../navbar/Navbar'
+import { auth } from '../../../config/firebase'
 
 const Home = () => {
 
@@ -23,6 +24,7 @@ const Home = () => {
 
     useEffect(() => {
         callapi()
+        console.log(auth.currentUser)
     }, [])
   
   return (

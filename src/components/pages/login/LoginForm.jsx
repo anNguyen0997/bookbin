@@ -17,7 +17,7 @@ const LoginForm = () => {
         .then(() => {
           auth.onAuthStateChanged(user => {
             console.log(`user logged in`)
-            navigate('/userhome')
+            navigate('/-userhome')
           })
         })
     } catch (error) {

@@ -29,34 +29,36 @@ const CurrentlyReading = () => {
     }, [])
     
   return (
-    <div className='bg-gray-300 w-full h-1/6 flex flex-col justify-center p-3 gap-2'>
+    <div className='w-full flex flex-col justify-center
+    text-md md:text-lg p-3 gap-2'>
+
       <h2>Currently Reading:</h2>
       {userBooks.map((book) => (
-        <div key={book.id} className='bg-gray-400 w-full h-full rounded-lg flex flex-row gap-2'>
-          <div className='flex w-3/12 justify-center items-center'>
-            <img src={book.volumeInfo.imageLinks.smallThumbnail}></img>
+        <div key={book.id} className='bg-gray-400 rounded-lg flex flex-row gap-6 p-3'>
+          <div className='flex justify-center items-center'>
+            <img alt='book cover'
+            src={book.volumeInfo.imageLinks.smallThumbnail}></img>
           </div>
 
-          <div className='flex flex-col gap-1 justify-center'>
+          <div className='flex flex-col justify-center items-center'>
+            <div className='flex flex-col'>
+              <h2>{book.volumeInfo.title}</h2>
+              <p>by {book.volumeInfo.authors}</p>
+            </div>
 
-            <h2>{book.volumeInfo.title}</h2>
-            <p>{book.volumeInfo.authors}</p>
-            <button className='border rounded-lg px-2 py-1'>Update Progress</button>
+            <button
+            className='border rounded-lg p-2 mt-5'>
+              Book Completed</button>
 
-            <div className='flex flex-row'>
+            {/* <div className='flex flex-row gap-1'>
               <p>Progress:</p>
               <button className='border'>0 / {book.volumeInfo.pageCount} pages</button>
-            </div>
+            </div> */}
 
           </div>
         </div>
       ))}
 
-
-        <div className='bg-gray-400 w-full h-full rounded-lg flex flex-row gap-2'>
-
-
-        </div>
     </div>
   )
 }

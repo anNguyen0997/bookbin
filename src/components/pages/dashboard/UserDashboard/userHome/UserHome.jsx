@@ -80,7 +80,7 @@ const UserHome = () => {
                     p-4 gap-2 border
                     md:h-[190px]'>
                         <div>
-                            <img
+                            <img alt='book cover'
                             src={book.volumeInfo.imageLinks.smallThumbnail} 
                             className='w-[55px] md:w-[90px]' />
                         </div>
