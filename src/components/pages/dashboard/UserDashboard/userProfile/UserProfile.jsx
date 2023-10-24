@@ -10,7 +10,7 @@ const UserProfile = () => {
 
       <UserNavbar />
 
-      <div className='w-full flex flex-col items-center justify-center
+      <div className='bg-[#E4DCCF] w-full flex flex-col items-center justify-center
       mt-[60px] md:mt-[85px]'>
           
           <div className='w-full flex flex-col'>

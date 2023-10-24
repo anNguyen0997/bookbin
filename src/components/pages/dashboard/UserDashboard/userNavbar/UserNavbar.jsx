@@ -6,7 +6,7 @@ const UserNavbar = () => {
   const navigate = useNavigate()
   const links = [
     {name: 'Profile', link: '/-profile'},
-    {name: 'Discover', link: '/discover'}
+    {name: 'Discover', link: '/'}
   ]
 
   const [menuToggle, setMenuToggle] = useState(false)
@@ -37,7 +37,7 @@ const UserNavbar = () => {
                 <h1>{!menuToggle ? 'O' : 'X'}</h1>
             </div>
 
-            <ul className={`bg-[#BFB29E] w-full fixed bg-white z-[-1] left-0
+            <ul className={`bg-[#BFB29E] w-full fixed z-[-1] left-0
             md:flex md:items-center md:pb-0 md:static md:z-auto md:w-auto md:pl-0
             transition-all duration-500 ease-in 
             ${menuToggle ? 'top-[61px]':'top-[-300px]'}`}>
@@ -61,21 +61,23 @@ const UserNavbar = () => {
         <div className={!toggleLogoutModal ? `hidden`:  `fixed inset-0 w-full h-full
         flex justify-center items-center
         backdrop-blur-sm`}>
-          <div className='flex flex-col justify-center items-center 
-          w-9/12 h-2/6 bg-white rounded-lg gap-6
-          '>
-                <div className='text-center px-16'>
+          <div className='bg-[#E4DCCF] flex flex-col justify-center items-center 
+          text-md w-8/12 py-8 rounded-lg gap-6 border-4 border-[#BFB29E]
+          md:text-2xl md:w-6/12 md:h-1/6'>
+                <div className='text-center px-16 font-bold'>
                   <h1>Are you sure you want to Logout?</h1>
                 </div>
                 <div className='flex flex-row gap-4'>
                   <button 
-                  className='border py-1 px-2 rounded-md'
+                  className='text-white py-2 px-2 rounded-md
+                  bg-gray-400'
                   onClick={() => setToggleLogoutModal(false)}>
                     Cancel
                   </button>
 
                   <button 
-                  className='border py-1 px-2 rounded-md'
+                  className='text-white py-2 px-2 rounded-md
+                  bg-red-400'
                   onClick={handleLogout}
                   >Logout
                   </button>

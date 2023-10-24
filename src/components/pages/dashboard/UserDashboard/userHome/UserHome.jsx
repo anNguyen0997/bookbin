@@ -69,7 +69,7 @@ const UserHome = () => {
 
             <div className='w-full flex gap-3 text-sm border-b border-[#BFB29E] pb-2 md:text-lg'>
               <input placeholder='Title, genre, or author'
-              className='w-full md:w-3/12 px-4 py-2 rounded-lg'> 
+              className='w-full md:w-4/12 px-4 py-2 rounded-lg'> 
               </input>
             </div>
 

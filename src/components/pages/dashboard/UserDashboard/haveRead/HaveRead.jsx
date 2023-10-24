@@ -38,7 +38,7 @@ const HaveRead = () => {
     
   return (
     <div className='w-full flex flex-col justify-center
-    p-3 gap-2 border-b border-black'>
+    p-3 gap-2 border-b-2 border-[#BFB29E]'>
 
         <div className='flex flex-row items-center justify-start
         p-3 gap-2'>
@@ -59,8 +59,8 @@ const HaveRead = () => {
                 </div>
 
                 <button
-                    className='bg-gray-500 text-white rounded-lg p-2 mt-4
-                    hover:bg-gray-300'
+                    className='bg-[#BFB29E] text-white rounded-lg p-2 mt-4
+                    hover:'
                     onClick={handleShowMore}> 
                     Show More
                 </button>

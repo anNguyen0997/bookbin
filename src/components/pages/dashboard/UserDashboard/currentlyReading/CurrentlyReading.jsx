@@ -34,7 +34,8 @@ const CurrentlyReading = () => {
 
       <h2>Currently Reading:</h2>
       {userBooks.map((book) => (
-        <div key={book.id} className='bg-gray-400 rounded-lg flex flex-row gap-6 p-3'>
+        <div key={book.id} className='bg-gray-500 rounded-lg flex flex-row gap-6 p-3'>
+
           <div className='flex justify-center items-center'>
             <img alt='book cover'
             src={book.volumeInfo.imageLinks.smallThumbnail}></img>

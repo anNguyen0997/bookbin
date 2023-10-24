@@ -34,11 +34,16 @@ const HaveReadDetails = () => {
 
         <UserNavbar />
 
-        <div className='w-full flex flex-col justify-center mt-[60px] md:mt-[85px]
-        p-3 gap-2 border-b border-black'>
+        <div className='bg-[#E4DCCF] w-full flex flex-col justify-center mt-[60px] md:mt-[85px]
+        gap-3'>
+
+            <div className='text-lg md:text-2xl py-2 px-4'>
+                <p>button to go back</p>
+                <h1>Books you have read</h1>
+            </div>
 
         {userBooks.map((book) => (
-            <div key={book.id} className='h-[150px] rounded-lg flex flex-row gap-6 p-3'>
+            <div key={book.id} className='h-[160px] rounded-md flex flex-row gap-6 p-2 border-b-2 border-[#BFB29E]'>
                 <div className='flex justify-center items-center'>
                     <img alt='book cover'
                     className='w-9/12'
@@ -53,12 +58,7 @@ const HaveReadDetails = () => {
 
                 <div className='flex flex-col text-sm md:text-md mt-2 gap-1'>
                     <button
-                    className='bg-gray-400 text-white border rounded-lg p-1'>
-                    + Currently Reading
-                    </button>
-
-                    <button
-                    className='w-10/12 bg-gray-400 text-white border rounded-lg p-1'>
+                    className='bg-gray-400 text-white border rounded-lg p-2'>
                     Remove Book
                     </button>
                 </div>
