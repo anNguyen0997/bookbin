@@ -1,8 +1,5 @@
 import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import { auth } from './config/firebase';
-import { useEffect, useState } from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
 
 import Home from '../src/components/pages/home/Home';
 import Register from '../src/components/pages/register/Register';
@@ -14,13 +11,6 @@ import UserHome from './components/pages/dashboard/UserDashboard/userHome/UserHo
 import PrivateRoutes from './layouts/PrivateRoutes';
 
 function App() {
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    onAuthStateChanged(auth, (user) => {
-      setUser(user)
-    })
-  }, [])
 
   return (
     <div>

@@ -1,31 +1,41 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Navbar from '../navbar/Navbar'
+import UserHome from '../dashboard/UserDashboard/userHome/UserHome'
 import { auth } from '../../../config/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
-import UserHome from '../dashboard/UserDashboard/userHome/UserHome'
 
 const Home = () => {
     const [user, setUser] = useState(null)
     const [books, setBooks] = useState([])
 
     const baseURL = 'https://www.googleapis.com/books/v1/volumes?'
-    const API_KEY = 'AIzaSyAxCTsiPg28jac0Tufu0V1PNzTmc7cNc0A' 
+    const API_KEY = 'AIzaSyAxCTsiPg28jac0Tufu0V1PNzTmc7cNc0A'
     const genres = [
-      'mystery', 'fantasy', 'romance', 'thriller', 'horror', 
-    'fiction', 'nonfiction', 'travel', 'science', 'history', 'self-help'
+      'mystery', 'fantasy', 'romance', 'thriller', 'horror',
+      'fiction', 'nonfiction', 'travel', 'science', 'history', 'self-help'
     ]
     const randomGenres = genres[Math.floor(Math.random() * genres.length)]
+    const [genreResult, setGenreResult] = useState('')
 
     const callapi = () => {
-        axios.get(`${baseURL}q=subject:${randomGenres}&printType=books&orderBy=newest&key=${API_KEY}`)
+        setGenreResult(randomGenres)
+        axios.get(`${baseURL}q=subject:${randomGenres}&printType=books&orderBy=newest&maxResults=20&key=${API_KEY}`)
         .then(res => {
             const data = res.data.items
             setBooks(data)
-            console.log(data)
         })
         .catch(err => console.log(err))
     }
+
+    // const searchAPI = () => {
+    //   axios.get(`${baseURL}q=&printType=books&orderBy=newest&key=${API_KEY}`)
+    //     .then(res => {
+    //         const data = res.data.items
+    //         setBooks(data)
+    //     })
+    //     .catch(err => console.log(err))
+    // }
 
     useEffect(() => {
         callapi()
@@ -44,23 +54,28 @@ const Home = () => {
 
         <Navbar />
 
-        <div className='w-full flex flex-col justify-center
+        <div className=' w-full flex flex-col justify-center
         mt-[60px] md:mt-[85px]'>
 
-          <div className='bg-gray-500 flex flex-col gap-2 p-2'>
+          <div className='bg-[#E4DCCF] flex flex-col gap-2 p-2'>
 
-            <div className='w-full flex gap-3 text-sm border-b pb-2'>
+            <div className='w-full flex gap-3 text-sm border-b border-[#BFB29E] pb-2 md:text-lg'>
               <input placeholder='Title, genre, or author'
-              className='p-2'> 
+              className='w-full md:w-3/12 px-4 py-2 rounded-lg'> 
               </input>
             </div>
 
-            <div className='flex flex-col gap-1 p-1
-            md:grid md:grid-cols-2 md:gap-4 md:p-4'>
+            <div className='text-sm md:text-lg md:mt-2'>
+              <h4>Explore newest books in <span className='text-[#26577C] capitalize font-semibold'>{genreResult}</span></h4>
+            </div>
+
+            <div className='flex flex-col gap-1
+            md:grid md:grid-cols-2 md:gap-4 md:p-2'>
+
               {books.map((book) => (
                 <div key={book.id}
                   className='flex flex-row items-center justify-start h-[110px]
-                  p-4 gap-2 border
+                  p-2 gap-2 border border-[#BFB29E] rounded-md
                   md:h-[190px]'>
                   <div>
                     <img
@@ -80,7 +95,6 @@ const Home = () => {
 
       </div>
       }
-
     </>
   )
 }
