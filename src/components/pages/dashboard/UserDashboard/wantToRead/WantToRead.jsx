@@ -14,15 +14,12 @@ const WantToRead = () => {
 
         if (docSnap.exists()) {
             // console.log(docSnap.data())
-            setUserBooks(docSnap.data().wantToRead)
+            const displayBooks = docSnap.data().wantToRead.slice(0, 3)
+            setUserBooks(displayBooks)
             setNumberOfBooks(docSnap.data().wantToRead.length)
         } else {
             console.log('this user does not exist')
         }
-    }
-
-    const handleShowMore = () => {
-        navigate('/-wanttoread')
     }
     
     useEffect(() => {
@@ -41,14 +38,20 @@ const WantToRead = () => {
     p-3 gap-2 border-b-2 border-[#BFB29E]'>
 
         <div className='flex flex-row items-center justify-start
-        p-3 gap-2'>
+        p-2 gap-2'>
             
-            {userBooks.map((book) => (
-                <div key={book.id}>
-                <img
-                    className='w-8/12'
-                    alt='book cover' 
-                    src={book.volumeInfo.imageLinks.smallThumbnail} />
+            {userBooks.map((book, index) => (
+                <div 
+                key={index} 
+                className='w-[90px] md:w-[110px]'
+                style={{
+                    zIndex: 2 - index,
+                    marginLeft: index !== 0 ? -75 : 0
+                }}>
+                    <img
+                        className='w-[80px] md:w-[140px]'
+                        alt='book cover' 
+                        src={book.volumeInfo.imageLinks.smallThumbnail} />
                 </div>
             ))}
 
@@ -60,7 +63,7 @@ const WantToRead = () => {
 
                 <button
                     className='bg-[#BFB29E] text-white rounded-lg p-2 mt-4'
-                    onClick={handleShowMore}> 
+                    onClick={() => navigate('/-wanttoread')}> 
                     Show More
                 </button>
             </div>

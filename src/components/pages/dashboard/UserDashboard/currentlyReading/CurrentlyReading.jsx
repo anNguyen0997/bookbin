@@ -4,6 +4,7 @@ import { doc, getDoc } from 'firebase/firestore'
 
 const CurrentlyReading = () => {
     const [userBooks, setUserBooks] = useState([])
+    const [toggleModal, setToggleModal] = useState(false)
     
     const getUser = async() => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
@@ -15,6 +16,10 @@ const CurrentlyReading = () => {
         } else {
             console.log('this user does not exist')
         }
+    }
+
+    const handleCompleteBook = (book) => {
+      
     }
     
     useEffect(() => {
@@ -43,23 +48,47 @@ const CurrentlyReading = () => {
 
           <div className='flex flex-col justify-center items-center'>
             <div className='flex flex-col'>
-              <h2>{book.volumeInfo.title}</h2>
+              <h2 className='font-bold'>{book.volumeInfo.title}</h2>
               <p>by {book.volumeInfo.authors}</p>
             </div>
 
             <button
-            className='border rounded-lg p-2 mt-5'>
-              Book Completed</button>
+            className='border rounded-lg p-2 mt-5'
+            onClick={() => setToggleModal(true)}>
+              Book Completed
+            </button>
 
-            {/* <div className='flex flex-row gap-1'>
-              <p>Progress:</p>
-              <button className='border'>0 / {book.volumeInfo.pageCount} pages</button>
-            </div> */}
+          </div>
 
+          {/* Book Completed Modal */}
+          <div className={!toggleModal ? `hidden`:  `z-10 fixed inset-0 w-full h-full
+          flex justify-center items-center
+          backdrop-blur-sm`}>
+            <div className='bg-[#E4DCCF] flex flex-col justify-center items-center 
+            text-md w-8/12 py-8 rounded-lg gap-6 border-4 border-[#BFB29E]
+            md:text-2xl md:w-6/12 md:h-1/6'>
+              <div className='text-center px-16 font-bold'>
+                <h1>Add '{book.volumeInfo.title}'' to Have Read?</h1>
+              </div>
+              <div className='flex flex-row gap-4'>
+                <button 
+                className='text-white py-2 px-2 rounded-md
+                bg-gray-400'
+                onClick={() => setToggleModal(false)}>
+                  Cancel
+                </button>
+
+                <button 
+                className='text-white py-2 px-2 rounded-md
+                bg-red-400'
+                onClick={handleCompleteBook(book)}
+                >Add
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       ))}
-
     </div>
   )
 }

@@ -14,17 +14,14 @@ const HaveRead = () => {
 
         if (docSnap.exists()) {
             // console.log(docSnap.data())
-            setUserBooks(docSnap.data().haveRead)
+            const displayBooks = docSnap.data().haveRead.slice(0, 3)
+            setUserBooks(displayBooks)
             setNumberOfBooks(docSnap.data().haveRead.length)
         } else {
             console.log('this user does not exist')
         }
     }
 
-    const handleShowMore = () => {
-        navigate('/-haveread')
-    }
-    
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             if (user) {
@@ -38,17 +35,23 @@ const HaveRead = () => {
     
   return (
     <div className='w-full flex flex-col justify-center
-    p-3 gap-2 border-b-2 border-[#BFB29E]'>
+    p-2 gap-2 border-b-2 border-[#BFB29E]'>
 
         <div className='flex flex-row items-center justify-start
         p-3 gap-2'>
             
-            {userBooks.map((book) => (
-                <div key={book.id}>
-                <img
-                    className='w-8/12'
-                    alt='book cover' 
-                    src={book.volumeInfo.imageLinks.smallThumbnail} />
+            {userBooks.map((book, index) => (
+                <div 
+                key={index} 
+                className='w-[90px] md:w-[110px]'
+                style={{
+                    zIndex: 2 - index,
+                    marginLeft: index !== 0 ? -75 : 0
+                }}>
+                    <img
+                        className='w-[80px] md:w-[140px]'
+                        alt='book cover' 
+                        src={book.volumeInfo.imageLinks.smallThumbnail} />
                 </div>
             ))}
 
@@ -61,7 +64,7 @@ const HaveRead = () => {
                 <button
                     className='bg-[#BFB29E] text-white rounded-lg p-2 mt-4
                     hover:'
-                    onClick={handleShowMore}> 
+                    onClick={() => navigate('/-haveread')}> 
                     Show More
                 </button>
             </div>

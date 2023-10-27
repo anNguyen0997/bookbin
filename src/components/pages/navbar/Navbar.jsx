@@ -26,7 +26,7 @@ const Navbar = () => {
                 <h1>{!menuToggle ? 'O' : 'X'}</h1>
             </div>
 
-            <ul className={`bg-[#BFB29E] w-full fixed bg-white z-[-1] left-0
+            <ul className={`bg-[#BFB29E] w-full fixed z-[-1] left-0
             md:flex md:items-center md:pb-0 md:static md:z-auto md:w-auto md:pl-0
             transition-all duration-500 ease-in 
             ${menuToggle ? 'top-[61px]':'top-[-100px]'}`}>
