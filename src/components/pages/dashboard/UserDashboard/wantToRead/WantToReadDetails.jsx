@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { db, auth } from '../../../../../config/firebase'
-import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore'
+import { doc, getDoc, updateDoc, arrayRemove, arrayUnion } from 'firebase/firestore'
 import UserNavbar from '../userNavbar/UserNavbar'
 
 const WantToReadDetails = () => {
@@ -15,6 +15,18 @@ const WantToReadDetails = () => {
             setUserBooks(docSnap.data().wantToRead)
         } else {
             console.log('this user does not exist')
+        }
+    }
+
+    const handleAddCurrentlyReading = async(book) => {
+        const userReference = doc(db, 'users', auth.currentUser.uid)
+        try {
+            await updateDoc(userReference, {
+                currentlyReading: arrayUnion(book),
+                wantToRead: arrayRemove(book)
+            })
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -71,6 +83,7 @@ const WantToReadDetails = () => {
                 <div className='flex flex-col text-sm md:text-md mt-2 gap-1'>
                     <button
                     className='bg-[#6A9C89] text-white border rounded-lg py-1 px-2'
+                    onClick={() => handleAddCurrentlyReading(book)}
                     >
                     +Currently Reading
                     </button>

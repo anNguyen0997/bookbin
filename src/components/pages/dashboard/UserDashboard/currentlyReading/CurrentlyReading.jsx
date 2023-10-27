@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { db, auth } from '../../../../../config/firebase'
-import { doc, getDoc } from 'firebase/firestore'
+import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
 
 const CurrentlyReading = () => {
     const [userBooks, setUserBooks] = useState([])
@@ -18,8 +18,16 @@ const CurrentlyReading = () => {
         }
     }
 
-    const handleCompleteBook = (book) => {
-      
+    const handleCompleteBook = async(book) => {
+      const userReference = doc(db, 'users', auth.currentUser.uid)
+      try {
+        await updateDoc(userReference, {
+          currentlyReading: arrayRemove(book),
+          haveRead: arrayUnion(book)
+        })
+      } catch (err) {
+        console.log(err)
+      }
     }
     
     useEffect(() => {
@@ -68,7 +76,7 @@ const CurrentlyReading = () => {
             text-md w-8/12 py-8 rounded-lg gap-6 border-4 border-[#BFB29E]
             md:text-2xl md:w-6/12 md:h-1/6'>
               <div className='text-center px-16 font-bold'>
-                <h1>Add '{book.volumeInfo.title}'' to Have Read?</h1>
+                <h1>Add to Have Read?</h1>
               </div>
               <div className='flex flex-row gap-4'>
                 <button 
@@ -81,7 +89,7 @@ const CurrentlyReading = () => {
                 <button 
                 className='text-white py-2 px-2 rounded-md
                 bg-red-400'
-                onClick={handleCompleteBook(book)}
+                onClick={() => handleCompleteBook(book)}
                 >Add
                 </button>
               </div>
