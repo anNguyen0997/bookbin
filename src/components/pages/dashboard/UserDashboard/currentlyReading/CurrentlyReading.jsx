@@ -5,8 +5,9 @@ import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firest
 const CurrentlyReading = () => {
     const [userBooks, setUserBooks] = useState([])
     const [toggleModal, setToggleModal] = useState(false)
+    const [currentBookIndex, setCurrentBookIndex] = useState(0);
     
-    const getUser = async() => {
+    const getUserBooks = async() => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
         const docSnap = await getDoc(userReference)
 
@@ -29,12 +30,24 @@ const CurrentlyReading = () => {
         console.log(err)
       }
     }
+
+    
+    const goToNextBook = () => {
+      setCurrentBookIndex((prevIndex) => (prevIndex + 1) % userBooks.length);
+    };
+
+
+    const goToPreviousBook = () => {
+      setCurrentBookIndex((prevIndex) =>
+        prevIndex === 0 ? userBooks.length - 1 : prevIndex - 1
+      );
+    }
     
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             if (user) {
                 console.log(user)
-                getUser()
+                getUserBooks()
             } else {
                 console.log('there are no users signed in')
             }
@@ -46,25 +59,46 @@ const CurrentlyReading = () => {
     text-md md:text-lg p-3 gap-2'>
 
       <h2>Currently Reading:</h2>
-      {userBooks.map((book) => (
-        <div key={book.id} className='bg-gray-500 rounded-lg flex flex-row gap-6 p-3'>
+
+      {userBooks.map((book, index) => (
+        <div key={book.id} className={`bg-gray-500 rounded-lg flex flex-row gap-6 p-3 ${
+          index === currentBookIndex ? '' : 'hidden'}`}>
 
           <div className='flex justify-center items-center'>
             <img alt='book cover'
             src={book.volumeInfo.imageLinks.smallThumbnail}></img>
           </div>
 
-          <div className='flex flex-col justify-center items-center'>
+          <div className='flex flex-col justify-center items-start'>
             <div className='flex flex-col'>
               <h2 className='font-bold'>{book.volumeInfo.title}</h2>
               <p>by {book.volumeInfo.authors}</p>
             </div>
 
-            <button
-            className='border rounded-lg p-2 mt-5'
-            onClick={() => setToggleModal(true)}>
-              Book Completed
-            </button>
+            <div className='mt-5'>
+              <button
+              className='border rounded-lg p-2'
+              onClick={() => setToggleModal(true)}>
+                Book Completed
+              </button>
+            </div>
+
+            <div className="flex flex-row gap-2 mt-2">
+              <button
+                className="text-white py-2 px-2 rounded-md bg-gray-400"
+                onClick={goToPreviousBook}
+              >
+                Prev
+              </button>
+
+              <button
+                className="text-white py-2 px-2 rounded-md bg-gray-400"
+                onClick={goToNextBook}
+              >
+                Next
+              </button>
+            </div>
+
 
           </div>
 
