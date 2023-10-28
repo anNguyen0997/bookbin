@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { db, auth } from '../../../../../config/firebase'
 import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
+import { GoChevronLeft, GoChevronRight } from 'react-icons/go'
 
 const CurrentlyReading = () => {
     const [userBooks, setUserBooks] = useState([])
@@ -30,17 +31,15 @@ const CurrentlyReading = () => {
         console.log(err)
       }
     }
-
     
     const goToNextBook = () => {
-      setCurrentBookIndex((prevIndex) => (prevIndex + 1) % userBooks.length);
+      setCurrentBookIndex((prevIndex) => (prevIndex + 1) % userBooks.length)
     };
-
 
     const goToPreviousBook = () => {
       setCurrentBookIndex((prevIndex) =>
         prevIndex === 0 ? userBooks.length - 1 : prevIndex - 1
-      );
+      )
     }
     
     useEffect(() => {
@@ -61,7 +60,7 @@ const CurrentlyReading = () => {
       <h2>Currently Reading:</h2>
 
       {userBooks.map((book, index) => (
-        <div key={book.id} className={`bg-gray-500 rounded-lg flex flex-row gap-6 p-3 ${
+        <div key={book.id} className={`bg-white rounded-lg flex flex-row gap-6 p-3 h-[230px] ${
           index === currentBookIndex ? '' : 'hidden'}`}>
 
           <div className='flex justify-center items-center'>
@@ -77,29 +76,25 @@ const CurrentlyReading = () => {
 
             <div className='mt-5'>
               <button
-              className='border rounded-lg p-2'
+              className='bg-[#E4DCCF] rounded-lg px-3 py-2 hover:bg-[#BFB29E] duration-500'
               onClick={() => setToggleModal(true)}>
                 Book Completed
               </button>
             </div>
 
-            <div className="flex flex-row gap-2 mt-2">
-              <button
-                className="text-white py-2 px-2 rounded-md bg-gray-400"
+            <div className="flex flex-row gap-4 mt-2">
+              <GoChevronLeft
+                size='30px'
+                className="rounded-full bg-[#E4DCCF] hover:bg-[#BFB29E] duration-500 p-1"
                 onClick={goToPreviousBook}
-              >
-                Prev
-              </button>
+              />
 
-              <button
-                className="text-white py-2 px-2 rounded-md bg-gray-400"
+              <GoChevronRight
+                size='30px'
+                className="rounded-full bg-[#E4DCCF] hover:bg-[#BFB29E] duration-500 p-1"
                 onClick={goToNextBook}
-              >
-                Next
-              </button>
+              />
             </div>
-
-
           </div>
 
           {/* Book Completed Modal */}
