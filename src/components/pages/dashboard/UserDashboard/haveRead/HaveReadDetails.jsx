@@ -2,9 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { db, auth } from '../../../../../config/firebase'
 import { doc, getDoc, updateDoc, arrayRemove } from 'firebase/firestore'
 import UserNavbar from '../userNavbar/UserNavbar'
+import { GoChevronLeft } from 'react-icons/go'
+import { useNavigate} from 'react-router-dom'
 
 const HaveReadDetails = () => {
     const [userBooks, setUserBooks] = useState([])
+    const navigate = useNavigate()
     
     const getUser = async() => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
@@ -15,6 +18,28 @@ const HaveReadDetails = () => {
             setUserBooks(docSnap.data().haveRead)
         } else {
             console.log('this user does not exist')
+        }
+    }
+
+    const handleRemoveBook = async (book) => {
+        const userReference = doc(db, 'users', auth.currentUser.uid)
+        try {
+            await updateDoc(userReference, {
+                haveRead: arrayRemove(book)
+            })
+            updateUserBooks()
+            console.log('book removed successfully')
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    const updateUserBooks = async () => {
+        const userReference = doc(db, 'users', auth.currentUser.uid)
+        const userUpdatedBooks = await getDoc(userReference)
+
+        if (userUpdatedBooks.exists()) {
+            setUserBooks(userUpdatedBooks.data().haveRead)
         }
     }
     
@@ -37,10 +62,14 @@ const HaveReadDetails = () => {
         <div className='bg-[#E4DCCF] w-full flex flex-col justify-center mt-[60px] md:mt-[85px]
         gap-3'>
 
-            <div className='text-lg md:text-2xl py-2 px-4'>
-                <p>button to go back</p>
-                <h1>Books you have read</h1>
-            </div>
+        <div className=' flex flex-row text-lg md:text-2xl py-4 px-4 gap-4'>
+            <GoChevronLeft
+            size='35px'
+            className="cursor-pointer rounded-full bg-gray-300 hover:bg-gray-400 duration-500 p-1"
+            onClick={() => navigate('/-profile')}
+            />
+            <h1 className='font-semibold'>Books you have read:</h1>
+        </div>
 
         {userBooks.map((book) => (
             <div key={book.id} className='h-[160px] rounded-md flex flex-row gap-6 p-2 border-b-2 border-[#BFB29E]'>
@@ -58,7 +87,8 @@ const HaveReadDetails = () => {
 
                 <div className='flex flex-col text-sm md:text-md mt-2 gap-1'>
                     <button
-                    className='bg-gray-400 text-white border rounded-lg p-2'>
+                    className='bg-gray-400 text-white border rounded-lg p-2'
+                    onClick={() => handleRemoveBook(book)}>
                     Remove Book
                     </button>
                 </div>

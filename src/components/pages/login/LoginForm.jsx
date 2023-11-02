@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../../../config/firebase'
 import { signInWithEmailAndPassword } from 'firebase/auth'
@@ -17,7 +17,7 @@ const LoginForm = () => {
         .then(() => {
           auth.onAuthStateChanged(user => {
             console.log(`user logged in`)
-            navigate('/-userhome')
+            navigate('/-profile')
           })
         })
     } catch (error) {

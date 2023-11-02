@@ -5,6 +5,7 @@ import CurrentlyReading from '../currentlyReading/CurrentlyReading'
 import UserNavbar from '../userNavbar/UserNavbar'
 
 const UserProfile = () => {
+
   return (
     <div className='flex flex-col'>
 

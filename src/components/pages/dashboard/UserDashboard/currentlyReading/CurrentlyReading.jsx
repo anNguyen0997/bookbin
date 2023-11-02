@@ -2,11 +2,14 @@ import React, { useState, useEffect } from 'react'
 import { db, auth } from '../../../../../config/firebase'
 import { arrayRemove, arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { GoChevronLeft, GoChevronRight } from 'react-icons/go'
+import { useNavigate } from 'react-router-dom'
 
 const CurrentlyReading = () => {
+    const [userDisplayName, setUserDisplayName] = useState('')
     const [userBooks, setUserBooks] = useState([])
     const [toggleModal, setToggleModal] = useState(false)
     const [currentBookIndex, setCurrentBookIndex] = useState(0);
+    const navigate = useNavigate()
     
     const getUserBooks = async() => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
@@ -17,7 +20,11 @@ const CurrentlyReading = () => {
             setUserBooks(docSnap.data().currentlyReading)
         } else {
             console.log('this user does not exist')
+          }
         }
+        
+    const updateUserBooks = (bookID) => {
+      setUserBooks((prevBooks) => prevBooks.filter((book) => book.id !== bookID))
     }
 
     const handleCompleteBook = async(book) => {
@@ -27,11 +34,14 @@ const CurrentlyReading = () => {
           currentlyReading: arrayRemove(book),
           haveRead: arrayUnion(book)
         })
+        updateUserBooks(book.id)
+        setToggleModal(false)
+        navigate('/-profile')
       } catch (err) {
         console.log(err)
       }
     }
-    
+
     const goToNextBook = () => {
       setCurrentBookIndex((prevIndex) => (prevIndex + 1) % userBooks.length)
     };
@@ -45,10 +55,11 @@ const CurrentlyReading = () => {
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             if (user) {
-                console.log(user)
-                getUserBooks()
+              setUserDisplayName(user.email)
+              console.log(user)
+              getUserBooks()
             } else {
-                console.log('there are no users signed in')
+              console.log('there are no users signed in')
             }
         })
     }, [])
@@ -57,7 +68,14 @@ const CurrentlyReading = () => {
     <div className='w-full flex flex-col justify-center
     text-md md:text-lg p-3 gap-2'>
 
-      <h2>Currently Reading:</h2>
+      <div className='flex flex-col'>
+        <h1 className='text-lg md:text-2xl'>Welcome back,&nbsp;
+        <span className='italic text-emerald-500 font-semibold'>
+          {userDisplayName}
+        </span>!</h1>
+        <h2>Currently Reading:</h2>
+      </div>
+
 
       {userBooks.map((book, index) => (
         <div key={book.id} className={`bg-white rounded-lg flex flex-row gap-6 p-3 h-[230px] ${
@@ -85,13 +103,13 @@ const CurrentlyReading = () => {
             <div className="flex flex-row gap-4 mt-2">
               <GoChevronLeft
                 size='30px'
-                className="rounded-full bg-[#E4DCCF] hover:bg-[#BFB29E] duration-500 p-1"
+                className="cursor-pointer rounded-full bg-gray-300 hover:bg-gray-400 duration-500 p-1"
                 onClick={goToPreviousBook}
               />
 
               <GoChevronRight
                 size='30px'
-                className="rounded-full bg-[#E4DCCF] hover:bg-[#BFB29E] duration-500 p-1"
+                className="cursor-pointer rounded-full bg-gray-300 hover:bg-gray-400 duration-500 p-1"
                 onClick={goToNextBook}
               />
             </div>

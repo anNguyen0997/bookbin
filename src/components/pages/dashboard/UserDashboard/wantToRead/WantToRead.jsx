@@ -14,7 +14,7 @@ const WantToRead = () => {
 
         if (docSnap.exists()) {
             // console.log(docSnap.data())
-            const displayBooks = docSnap.data().wantToRead.slice(0, 3)
+            const displayBooks = docSnap.data().wantToRead.slice(0, 1)
             setUserBooks(displayBooks)
             setNumberOfBooks(docSnap.data().wantToRead.length)
         } else {
@@ -35,21 +35,17 @@ const WantToRead = () => {
     
   return (
     <div className='w-full flex flex-col justify-center
-    p-3 gap-2 border-b-2 border-[#BFB29E]'>
+    p-4 gap-2 border-b-2 border-[#BFB29E]'>
 
         <div className='flex flex-row items-center justify-start
-        p-2 gap-2'>
+        gap-4'>
             
             {userBooks.map((book, index) => (
                 <div 
                 key={index} 
-                className='w-[90px] md:w-[110px]'
-                style={{
-                    zIndex: 2 - index,
-                    marginLeft: index !== 0 ? -75 : 0
-                }}>
+                className='w-[100px] md:w-[110px]'>
                     <img
-                        className='w-[80px] md:w-[140px]'
+                        className='w-full'
                         alt='book cover' 
                         src={book.volumeInfo.imageLinks.smallThumbnail} />
                 </div>
