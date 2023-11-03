@@ -3,6 +3,7 @@ import axios from 'axios'
 import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../../../../config/firebase'
 import UserNavbar from '../userNavbar/UserNavbar'
+import UserSearch from './UserSearch'
 
 const UserHome = () => {
     const [books, setBooks] = useState([])
@@ -13,9 +14,19 @@ const UserHome = () => {
     const randomGenres = genres[Math.floor(Math.random() * genres.length)]
     const [genreResult, setGenreResult] = useState('')
 
-    const callapi = () => {
+    const callAPI = () => {
         setGenreResult(randomGenres)
         axios.get(`${baseURL}q=subject:${randomGenres}&printType=books&orderBy=newest&maxResults=20&key=${API_KEY}`)
+        .then(res => {
+            const data = res.data.items
+            setBooks(data)
+            console.log(data)
+        })
+        .catch(err => console.log(err))
+    }
+
+    const handleSearch = (userSearch) => {
+        axios.get(`${baseURL}q=${userSearch}&printType=books&orderBy=relevance&maxResults=20&key=${API_KEY}`)
         .then(res => {
             const data = res.data.items
             setBooks(data)
@@ -47,14 +58,7 @@ const UserHome = () => {
     }
 
     useEffect(() => {
-        callapi()
-        auth.onAuthStateChanged(user => {
-            if (user) {
-                console.log(user)
-            } else {
-              console.log('there are no users signed in')
-            }
-          })
+        callAPI()
     }, [])
 
   return (
@@ -67,11 +71,7 @@ const UserHome = () => {
 
             <div className='bg-[#E4DCCF] flex flex-col gap-2 p-2'>
 
-            <div className='w-full flex gap-3 text-sm border-b border-[#BFB29E] pb-2 md:text-lg'>
-              <input placeholder='Title, genre, or author'
-              className='w-full md:w-4/12 px-4 py-2 rounded-lg'> 
-              </input>
-            </div>
+                <UserSearch userSearch={handleSearch}/>
 
                 <div className='text-sm md:text-lg md:mt-2'>
                     <h4>Explore newest books in <span className='text-[#26577C] capitalize font-semibold'>{genreResult}</span></h4>

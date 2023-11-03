@@ -1,27 +1,38 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { auth } from '../../../config/firebase'
-import { signInWithEmailAndPassword } from 'firebase/auth'
+import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
 const LoginForm = () => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [errorMsg, setErrorMsg] = useState('')
   const navigate = useNavigate()
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault()
 
     try {
-       signInWithEmailAndPassword(auth, email, password)
-        .then(() => {
-          auth.onAuthStateChanged(user => {
-            console.log(`user logged in`)
-            navigate('/-profile')
-          })
-        })
+       const credentials = await signInWithEmailAndPassword(auth, email, password)
+      console.log(credentials)
+       setTimeout(async () => {
+        await signOut(auth)
+        console.log('user auto-logged out')
+       }, 24 * 60 * 60 * 1000)
+       navigate('/-profile')
     } catch (error) {
-      console.log(error)
+      switch (error.code) {
+        case 'auth/invalid-email':
+          setErrorMsg('Please enter a valid email')
+          break;
+        case 'auth/invalid-login-credentials':
+          setErrorMsg('Wrong password or email')
+          break;
+        default:
+          console.log(error)
+          setErrorMsg('An error occured during login')
+      }
     }
   }
   
@@ -55,6 +66,8 @@ const LoginForm = () => {
                 >Login</button>
 
               <a href='/register' className='text-[11px] md:text-lg'>Don't have an account?</a>
+
+              <p className=''>{errorMsg}</p>
 
           </div>
 

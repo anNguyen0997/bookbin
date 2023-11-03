@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { db } from '../../../config/firebase'
 import { setDoc, doc } from 'firebase/firestore'
 import { auth } from '../../../config/firebase'
-import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth'
 
 const RegisterForm = () => {
   const navigate = useNavigate()
@@ -17,24 +17,41 @@ const RegisterForm = () => {
     wantToRead: []
   })
 
+  const [errorMsg, setErrorMsg] = useState('')
+
   const handleCreateUser = async () => {
     setNewUser({ ...newUser, haveRead: [] })
-    setNewUser({ ...newUser, wantToRead: []})
-    setNewUser({ ...newUser, currentlyReading: []})
-    try {
-      const credentials = await createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
-      const user = credentials.user
-      const displayName = newUser.username
-      await updateProfile(user, {
-        displayName
-      })
-      
-      await setDoc(doc(db, 'users', credentials.user.uid), newUser)
-      navigate('/-profile')
-      console.log(credentials)
-    } catch (error) {
-      console.log(error)
+    setNewUser({ ...newUser, wantToRead: [] })
+    setNewUser({ ...newUser, currentlyReading: [] })
+
+    if (!newUser.username) {
+      setErrorMsg('Please enter a username')
+    } else {
+      try {
+        const credentials = await createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
+        const user = credentials.user
+        await updateProfile(user, {
+          displayName: newUser.username
+        })
+        
+        await setDoc(doc(db, 'users', credentials.user.uid), newUser)
+        navigate('/login')
+        console.log(credentials)
+      } catch (error) {
+        switch (error.code) {
+          case 'auth/invalid-email':
+            setErrorMsg('Please enter a valid email')
+            break;
+          case 'auth/weak-password':
+            setErrorMsg('Password should be at least 6 characters')
+            break;
+          default:
+            console.log(error)
+            setErrorMsg('An error occured during registration')
+        }
+      }
     }
+
   }
 
   return (
@@ -64,6 +81,8 @@ const RegisterForm = () => {
 
           <button className='border rounded-lg h-6 text-sm md:h-10 md:text-xl' onClick={handleCreateUser}>Register</button>
           <a href='/login' className='text-[11px] md:text-lg'>Have an account?</a>
+
+          <p>{errorMsg}</p>
 
         </div>
     </div>
