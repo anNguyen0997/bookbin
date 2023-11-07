@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import Navbar from '../navbar/Navbar'
 import UserHome from '../dashboard/UserDashboard/userHome/UserHome'
+import UserSearch from '../dashboard/UserDashboard/userHome/UserSearch'
 import { auth } from '../../../config/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
 
@@ -28,14 +29,15 @@ const Home = () => {
         .catch(err => console.log(err))
     }
 
-    // const searchAPI = () => {
-    //   axios.get(`${baseURL}q=&printType=books&orderBy=newest&key=${API_KEY}`)
-    //     .then(res => {
-    //         const data = res.data.items
-    //         setBooks(data)
-    //     })
-    //     .catch(err => console.log(err))
-    // }
+    const handleSearch = (userSearch) => {
+      axios.get(`${baseURL}q=${userSearch}&printType=books&orderBy=relevance&maxResults=20&key=${API_KEY}`)
+      .then(res => {
+          const data = res.data.items
+          setBooks(data)
+          console.log(data)
+      })
+      .catch(err => console.log('error'))
+    }
 
     useEffect(() => {
         callapi()
@@ -59,11 +61,7 @@ const Home = () => {
 
           <div className='bg-[#E4DCCF] flex flex-col gap-2 p-2'>
 
-            <div className='w-full flex gap-3 text-sm border-b border-[#BFB29E] pb-2 md:text-lg'>
-              <input placeholder='Title, genre, or author'
-              className='w-full md:w-3/12 px-4 py-2 rounded-lg'> 
-              </input>
-            </div>
+            <UserSearch userSearch={handleSearch}/>
 
             <div className='text-sm md:text-lg md:mt-2'>
               <h4>Explore newest books in <span className='text-[#26577C] capitalize font-semibold'>{genreResult}</span></h4>

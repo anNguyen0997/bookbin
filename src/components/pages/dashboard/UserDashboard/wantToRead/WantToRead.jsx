@@ -43,9 +43,9 @@ const WantToRead = () => {
             {userBooks.map((book, index) => (
                 <div 
                 key={index} 
-                className='w-[100px] md:w-[110px]'>
+                className='flex items-center h-[200px] md:h-[220px]'>
                     <img
-                        className='w-full'
+                        className='w-full md:h-[210px]'
                         alt='book cover' 
                         src={book.volumeInfo.imageLinks.smallThumbnail} />
                 </div>
@@ -53,12 +53,14 @@ const WantToRead = () => {
 
             <div className='flex flex-col justify-center items-start'>
                 <div>
-                    <h4 className='font-bold text-lg md:text-xl'>Want to Read</h4>
-                    <p className='text-md text-gray-500'>{numberOfBooks} books</p>
+                <h4 className='font-bold text-lg md:text-2xl'>Want To Read</h4>
+                    <p className='text-sm md:text-lg text-gray-500'>{numberOfBooks} books</p>
                 </div>
 
                 <button
-                    className='bg-[#BFB29E] text-white rounded-lg p-2 mt-4'
+                    className='bg-[#BFB29E] text-white rounded-lg 
+                    p-2 mt-4
+                    text-sm md:text-xl'
                     onClick={() => navigate('/-wanttoread')}> 
                     Show More
                 </button>

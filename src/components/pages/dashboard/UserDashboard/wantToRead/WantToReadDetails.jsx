@@ -95,7 +95,7 @@ const WantToReadDetails = () => {
                 <div className='flex flex-col justify-center items-start'>
                     <div className='flex flex-col'>
                     <h2 className='font-bold text-md md:text-lg'>{book.volumeInfo.title}</h2>
-                    <p className='text-sm md:text-md'>by {book.volumeInfo.authors[0]}</p>
+                    <p className='text-sm md:text-md'>by {book.volumeInfo.authors}</p>
                 </div>
 
                 <div className='flex flex-col text-sm md:text-md mt-2 gap-1'>

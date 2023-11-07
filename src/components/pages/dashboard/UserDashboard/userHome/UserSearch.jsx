@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 const UserSearch = ({ userSearch }) => {
     const [searchInput, setSearchInput] = useState('')
 
-    const handleSearch = () => {
+    const handleSearch = (e) => {
+      e.preventDefault()
         userSearch(searchInput)
     }
 
@@ -12,7 +13,9 @@ const UserSearch = ({ userSearch }) => {
       };
 
   return (
-    <div className='w-full flex gap-3 text-sm border-b border-[#BFB29E] pb-2 md:text-lg'>
+    <form 
+    className='w-full flex gap-2 text-sm border-b border-[#BFB29E] pb-2 md:text-lg'
+    onSubmit={handleSearch}>
         <input placeholder='Title, genre, or author'
         className='w-full md:w-4/12 px-4 py-2 rounded-lg'
         onChange={handleInput} > 
@@ -24,7 +27,7 @@ const UserSearch = ({ userSearch }) => {
       >
         Search
       </button>
-    </div>
+    </form>
   )
 }
 

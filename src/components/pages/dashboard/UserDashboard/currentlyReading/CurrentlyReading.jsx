@@ -78,23 +78,27 @@ const CurrentlyReading = () => {
 
 
       {userBooks.map((book, index) => (
-        <div key={book.id} className={`bg-white rounded-lg flex flex-row gap-6 p-3 h-[230px] ${
+        <div key={book.id} className={`bg-white rounded-lg flex flex-row gap-6 p-3 h-[230px] md:h-[260px] ${
           index === currentBookIndex ? '' : 'hidden'}`}>
 
           <div className='flex justify-center items-center'>
             <img alt='book cover'
+            className='h-[200px] md:h-[230px]'
             src={book.volumeInfo.imageLinks.smallThumbnail}></img>
           </div>
 
           <div className='flex flex-col justify-center items-start'>
             <div className='flex flex-col'>
-              <h2 className='font-bold'>{book.volumeInfo.title}</h2>
-              <p>by {book.volumeInfo.authors}</p>
+              <h2 className='font-bold text-lg md:text-2xl'>{book.volumeInfo.title}</h2>
+              <p className='text-sm md:text-lg'>by {book.volumeInfo.authors}</p>
             </div>
 
             <div className='mt-5'>
               <button
-              className='bg-[#E4DCCF] rounded-lg px-3 py-2 hover:bg-[#BFB29E] duration-500'
+              className='bg-[#E4DCCF] rounded-lg px-3 py-2 
+              hover:bg-[#BFB29E]
+              text-sm md:text-xl
+              duration-500'
               onClick={() => setToggleModal(true)}>
                 Book Completed
               </button>
@@ -102,13 +106,13 @@ const CurrentlyReading = () => {
 
             <div className="flex flex-row gap-4 mt-2">
               <GoChevronLeft
-                size='30px'
+                size='35px'
                 className="cursor-pointer rounded-full bg-gray-300 hover:bg-gray-400 duration-500 p-1"
                 onClick={goToPreviousBook}
               />
 
               <GoChevronRight
-                size='30px'
+                size='35px'
                 className="cursor-pointer rounded-full bg-gray-300 hover:bg-gray-400 duration-500 p-1"
                 onClick={goToNextBook}
               />

@@ -12,7 +12,8 @@ const UserProfile = () => {
       <UserNavbar />
 
       <div className='bg-[#E4DCCF] w-full flex flex-col items-center justify-center
-      mt-[60px] md:mt-[85px]'>
+      mt-[60px] md:mt-[85px]
+      px-1 md:px-[100px] 2xl:px-[300px] duration-500'>
           
           <div className='w-full flex flex-col'>
           
@@ -25,9 +26,9 @@ const UserProfile = () => {
               {/* HAVE READ */}
               <HaveRead />
 
-              <div className='flex justify-center items-center'>
+              {/* <div className='flex justify-center items-center'>
                 Favorite genres
-              </div>
+              </div> */}
 
           </div>
 

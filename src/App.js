@@ -20,7 +20,7 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
 
-          {/* Protected Routes */}
+          {/* Protected/Private Routes */}
           <Route element={<PrivateRoutes />}>
             <Route path='/-userhome' element={<UserHome />} />
             <Route path='/-profile' element={<UserProfile />} />
