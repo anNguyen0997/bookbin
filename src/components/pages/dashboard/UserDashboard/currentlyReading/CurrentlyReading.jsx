@@ -7,16 +7,18 @@ import { useNavigate } from 'react-router-dom'
 const CurrentlyReading = () => {
     const [userDisplayName, setUserDisplayName] = useState('')
     const [userBooks, setUserBooks] = useState([])
+    const [userData, setUserData] = useState({})
     const [toggleModal, setToggleModal] = useState(false)
     const [currentBookIndex, setCurrentBookIndex] = useState(0);
     const navigate = useNavigate()
     
-    const getUserBooks = async() => {
+    const getUserData = async() => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
         const docSnap = await getDoc(userReference)
 
         if (docSnap.exists()) {
             // console.log(docSnap.data())
+            setUserData(docSnap.data())
             setUserBooks(docSnap.data().currentlyReading)
         } else {
             console.log('this user does not exist')
@@ -29,16 +31,31 @@ const CurrentlyReading = () => {
 
     const handleCompleteBook = async(book) => {
       const userReference = doc(db, 'users', auth.currentUser.uid)
-      try {
-        await updateDoc(userReference, {
-          currentlyReading: arrayRemove(book),
-          haveRead: arrayUnion(book)
-        })
-        updateUserBooks(book.id)
-        setToggleModal(false)
-        navigate('/-profile')
-      } catch (err) {
-        console.log(err)
+      const bookExists = userData.haveRead.some((currentBook) => currentBook.id === book.id)
+
+      if (!bookExists) {
+        try {
+          await updateDoc(userReference, {
+            currentlyReading: arrayRemove(book),
+            haveRead: arrayUnion(book)
+          })
+          updateUserBooks(book.id)
+          setToggleModal(false)
+          navigate('/-profile')
+        } catch (err) {
+          console.log(err)
+        }
+      } else {
+        try {
+          await updateDoc(userReference, {
+            currentlyReading: arrayRemove(book),
+            haveRead:arrayRemove(book)
+          })
+          setToggleModal(false)
+        } catch (err) {
+          console.log(err)
+        }
+        console.log('Book is already in haveRead list')
       }
     }
 
@@ -47,17 +64,15 @@ const CurrentlyReading = () => {
     };
 
     const goToPreviousBook = () => {
-      setCurrentBookIndex((prevIndex) =>
-        prevIndex === 0 ? userBooks.length - 1 : prevIndex - 1
-      )
+      setCurrentBookIndex((prevIndex) => prevIndex === 0 ? userBooks.length - 1 : prevIndex - 1)
     }
     
     useEffect(() => {
         auth.onAuthStateChanged(user => {
             if (user) {
-              setUserDisplayName(user.email)
+              setUserDisplayName(user.displayName)
               console.log(user)
-              getUserBooks()
+              getUserData()
             } else {
               console.log('there are no users signed in')
             }
@@ -76,9 +91,8 @@ const CurrentlyReading = () => {
         <h2>Currently Reading:</h2>
       </div>
 
-
       {userBooks.map((book, index) => (
-        <div key={book.id} className={`bg-white rounded-lg flex flex-row gap-6 p-3 h-[230px] md:h-[260px] ${
+        <div key={book.etag} className={`bg-white rounded-lg flex flex-row gap-6 p-3 h-[230px] md:h-[260px] ${
           index === currentBookIndex ? '' : 'hidden'}`}>
 
           <div className='flex justify-center items-center'>

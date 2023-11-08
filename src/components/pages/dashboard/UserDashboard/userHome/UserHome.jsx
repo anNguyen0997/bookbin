@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
+import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../../../../config/firebase'
 import UserNavbar from '../userNavbar/UserNavbar'
 import UserSearch from './UserSearch'
 
 const UserHome = () => {
     const [books, setBooks] = useState([])
+    const [userData, setUserData] = useState({})
 
     const baseURL = 'https://www.googleapis.com/books/v1/volumes?'
     const API_KEY = 'AIzaSyAxCTsiPg28jac0Tufu0V1PNzTmc7cNc0A' 
@@ -24,6 +25,18 @@ const UserHome = () => {
         })
         .catch(err => console.log(err))
     }
+
+    const getUser = async() => {
+        const userReference = doc(db, 'users', auth.currentUser.uid)
+        const docSnap = await getDoc(userReference)
+
+        if (docSnap.exists()) {
+            console.log(docSnap.data())
+            setUserData(docSnap.data())
+        } else {
+            console.log('there are no users')
+        }
+    }
       
     const handleSearch = (userSearch) => {
         axios.get(`${baseURL}q=${userSearch}&printType=books&orderBy=relevance&maxResults=20&key=${API_KEY}`)
@@ -37,28 +50,42 @@ const UserHome = () => {
 
     const handleBookToWantToRead = async(book) => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
-        try {
-            await updateDoc(userReference, {
-                wantToRead: arrayUnion(book)
-            })
-        } catch (err) {
-            console.log(err)
+        const bookExists = userData.wantToRead.some((currentBook) => currentBook.id === book.id)
+
+        if (!bookExists) {
+            try {
+                await updateDoc(userReference, {
+                    wantToRead: arrayUnion(book)
+                })
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            console.log('Book is already in wantToRead list')
         }
     }
 
     const handleBookHaveRead = async(book) => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
-        try {
-            await updateDoc(userReference, {
-                haveRead: arrayUnion(book)
-            })
-        } catch (err) {
-            console.log(err)
+        const bookExists = userData.haveRead.some((currentBook) => currentBook.id === book.id)
+        
+        if (!bookExists) {
+            try {
+                await updateDoc(userReference, {
+                    haveRead: arrayUnion(book)
+                })
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            console.log('Book is already in haveRead list')
         }
+
     }
 
     useEffect(() => {
         callAPI()
+        getUser()
     }, [])
 
   return (
@@ -70,7 +97,7 @@ const UserHome = () => {
         mt-[60px] md:mt-[85px]'>
 
             <div className='bg-[#E4DCCF] flex flex-col gap-2 p-2
-            md:px-[100px] 2xl:px-[300px]
+            md:px-[100px] 2xl:px-[200px]
             duration-500'>
 
                 <UserSearch userSearch={handleSearch}/>
@@ -80,7 +107,7 @@ const UserHome = () => {
                 </div>
 
                 <div className='flex flex-col gap-1
-                md:grid lg:grid-cols-2 2xl:grid-cols-3 md:gap-4 md:py-2 md:px-14'>
+                md:grid lg:grid-cols-2 2xl:grid-cols-3 md:gap-4 md:py-2 md:px-8'>
                     {books.map((book) => (
                     <div key={book.etag}
                     className='flex flex-row items-center justify-start h-[120px]

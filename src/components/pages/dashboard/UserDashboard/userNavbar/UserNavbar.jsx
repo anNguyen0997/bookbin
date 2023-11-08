@@ -65,10 +65,10 @@ const UserNavbar = () => {
 
         <div className={!toggleLogoutModal ? `hidden`:  `z-10 fixed inset-0 w-full h-full
         flex justify-center items-center
-        backdrop-blur-sm `}>
+        backdrop-blur-sm`}>
           <div className='bg-[#E4DCCF] flex flex-col justify-center items-center 
           text-md w-8/12 py-8 rounded-lg gap-6 border-4 border-[#BFB29E]
-          md:text-2xl md:w-6/12 md:h-1/6'>
+          md:text-xl md:w-6/12 md:h-1/6'>
                 <div className='text-center px-16 font-bold'>
                   <h1>Are you sure you want to Logout?</h1>
                 </div>

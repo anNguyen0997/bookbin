@@ -45,6 +45,9 @@ const RegisterForm = () => {
           case 'auth/weak-password':
             setErrorMsg('Password should be at least 6 characters')
             break;
+          case 'auth/missing-password':
+            setErrorMsg('Please enter a password')
+            break;
           default:
             console.log(error)
             setErrorMsg('An error occured during registration')

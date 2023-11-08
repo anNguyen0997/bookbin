@@ -7,6 +7,7 @@ import { GoChevronLeft } from 'react-icons/go'
 
 const WantToReadDetails = () => {
     const [userBooks, setUserBooks] = useState([])
+    const [userData, setUserData] = useState({})
     const navigate = useNavigate()
     
     const getUser = async() => {
@@ -15,6 +16,7 @@ const WantToReadDetails = () => {
 
         if (docSnap.exists()) {
             console.log(docSnap.data())
+            setUserData(docSnap.data())
             setUserBooks(docSnap.data().wantToRead)
         } else {
             console.log('this user does not exist')
@@ -23,14 +25,20 @@ const WantToReadDetails = () => {
 
     const handleAddCurrentlyReading = async(book) => {
         const userReference = doc(db, 'users', auth.currentUser.uid)
-        try {
-            await updateDoc(userReference, {
-                currentlyReading: arrayUnion(book),
-                wantToRead: arrayRemove(book)
-            })
-            updateUserBooks()
-        } catch (err) {
-            console.log(err)
+        const bookExists = userData.currentlyReading.some((currentBook) => currentBook.id === book.id)
+
+        if (!bookExists) {
+            try {
+                await updateDoc(userReference, {
+                    currentlyReading: arrayUnion(book),
+                    wantToRead: arrayRemove(book)
+                })
+                updateUserBooks()
+            } catch (err) {
+                console.log(err)
+            }
+        } else {
+            console.log('Book is already in currentlyReading list')
         }
     }
 

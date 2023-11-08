@@ -1,13 +1,30 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import WantToRead from '../wantToRead/WantToRead'
 import HaveRead from '../haveRead/HaveRead'
 import CurrentlyReading from '../currentlyReading/CurrentlyReading'
 import UserNavbar from '../userNavbar/UserNavbar'
+import Home from '../../../home/Home'
+import { auth } from '../../../../../config/firebase'
 
 const UserProfile = () => {
+  const [authenticated, setAuthenticated] = useState(false)
+
+  useEffect(() => {
+    auth.onAuthStateChanged((user) => {
+      if (user) {
+        setAuthenticated(true)
+        // console.log(`${user.email} is authenticated`)
+      } else {
+        setAuthenticated(false)
+        // console.log('no authenticated users')
+      }
+    })
+  }, [])
 
   return (
-    <div className='flex flex-col'>
+
+    (authenticated ? (
+      <div className='flex flex-col'>
 
       <UserNavbar />
 
@@ -16,7 +33,6 @@ const UserProfile = () => {
       px-1 md:px-[100px] 2xl:px-[300px] duration-500'>
           
           <div className='w-full flex flex-col'>
-          
               {/* CURRENTLY READING */}
               <CurrentlyReading />
 
@@ -29,12 +45,14 @@ const UserProfile = () => {
               {/* <div className='flex justify-center items-center'>
                 Favorite genres
               </div> */}
-
           </div>
 
       </div>
     </div>
-    
+    ) : (
+      <Home />
+    ))
+
   )
 }
 

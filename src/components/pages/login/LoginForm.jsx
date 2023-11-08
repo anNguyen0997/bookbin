@@ -19,7 +19,7 @@ const LoginForm = () => {
        setTimeout(async () => {
         await signOut(auth)
         console.log('user auto-logged out')
-       }, 24 * 60 * 60 * 1000)
+       }, 1 * 60 * 60 * 1000)
        navigate('/-profile')
     } catch (error) {
       switch (error.code) {
@@ -28,6 +28,9 @@ const LoginForm = () => {
           break;
         case 'auth/invalid-login-credentials':
           setErrorMsg('Wrong password or email')
+          break;
+        case 'auth/missing-password':
+          setErrorMsg('Please enter a password')
           break;
         default:
           console.log(error)

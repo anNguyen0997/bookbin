@@ -20,13 +20,15 @@ function App() {
           <Route path='/register' element={<Register />} />
           <Route path='/login' element={<Login />} />
 
+          <Route path='/-profile' element={<UserProfile />} />
+          
           {/* Protected/Private Routes */}
           <Route element={<PrivateRoutes />}>
-            <Route path='/-userhome' element={<UserHome />} />
-            <Route path='/-profile' element={<UserProfile />} />
+            <Route path='/-home' element={<UserHome />} />
             <Route path='/-wanttoread' element={<WantToReadDetails />} />
             <Route path='/-haveread' element={<HaveReadDetails />} />
           </Route>
+
         </Routes>
       </BrowserRouter>
       
