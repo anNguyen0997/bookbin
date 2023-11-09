@@ -104,7 +104,7 @@ const CurrentlyReading = () => {
           <div className='flex flex-col justify-center items-start'>
             <div className='flex flex-col'>
               <h2 className='font-bold text-lg md:text-2xl'>{book.volumeInfo.title}</h2>
-              <p className='text-sm md:text-lg'>by {book.volumeInfo.authors}</p>
+              <p className='text-sm md:text-lg'>by {book.volumeInfo.authors[0]}</p>
             </div>
 
             <div className='mt-5'>
@@ -112,6 +112,7 @@ const CurrentlyReading = () => {
               className='bg-[#E4DCCF] rounded-lg px-3 py-2 
               hover:bg-[#BFB29E]
               text-sm md:text-xl
+              hover:scale-105
               duration-500'
               onClick={() => setToggleModal(true)}>
                 Book Completed
@@ -145,15 +146,17 @@ const CurrentlyReading = () => {
               </div>
               <div className='flex flex-row gap-4'>
                 <button 
-                className='text-white py-2 px-2 rounded-md
-                bg-gray-400'
+                className='text-white py-2 px-3 rounded-md
+                bg-gray-400 hover:bg-gray-500 hover:scale-105
+                duration-500'
                 onClick={() => setToggleModal(false)}>
-                  Cancel
+                  Close
                 </button>
 
                 <button 
-                className='text-white py-2 px-2 rounded-md
-                bg-red-400'
+                className='text-white py-2 px-4 rounded-md
+                bg-red-400 hover:bg-red-600 hover:scale-105
+                duration-500'
                 onClick={() => handleCompleteBook(book)}
                 >Add
                 </button>

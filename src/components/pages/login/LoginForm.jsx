@@ -41,36 +41,43 @@ const LoginForm = () => {
   
   return (
     <div className='w-full h-3/6 rounded-xl
-          lg:w-6/12 lg:h-full flex justify-center items-center p-16'>
+          lg:w-6/12 lg:h-full flex justify-center items-center p-14'>
 
-          <div className='flex flex-col w-9/12 gap-2 md:gap-5'>
+          <div className='flex flex-col w-10/12 gap-2 md:gap-5'>
 
-            <h1 className='font-bold text-center mb-2 text-lg md:text-5xl'>
+            <h1 className='font-bold text-center mb-2 text-2xl md:text-5xl'>
               Welcome Back!
             </h1>
 
               <input
                 type='email'
-                className='rounded-lg h-6 text-sm text-center md:h-10 md:text-xl md:py-5'
+                className='rounded-lg h-8 text-lg text-center md:h-10 md:text-2xl md:py-5'
                 placeholder='Enter Email'
                 onChange={(e) => setEmail(e.target.value)}
                 />
 
               <input
                 type='password'
-                className='rounded-lg h-6 text-sm text-center md:h-10 md:text-xl md:py-5'
+                className='rounded-lg h-8 text-lg text-center md:h-10 md:text-2xl md:py-5'
                 placeholder='Enter Password'
                 onChange={(e) => setPassword(e.target.value)}
                 />
 
               <button 
-                className='border rounded-lg h-6 text-sm md:h-10 md:text-xl'
+                className='text-black border rounded-lg h-10 text-lg md:h-12 md:text-xl bg-[#d0c3ae]
+                hover:scale-105 duration-500'
                 onClick={handleLogin}
-                >Login</button>
+                >
+                  Login
+              </button>
 
-              <a href='/register' className='text-[11px] md:text-lg'>Don't have an account?</a>
+              <a href='/register' 
+                className='mt-4 text-[15px] md:text-lg text-blue-400
+                hover:underline'>
+                  Don't have an account?
+              </a>
 
-              <p className=''>{errorMsg}</p>
+              <p className='text-[15px] md:text-md text-red-400'>{errorMsg}</p>
 
           </div>
 

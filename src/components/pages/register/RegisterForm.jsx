@@ -58,34 +58,45 @@ const RegisterForm = () => {
   }
 
   return (
-    <div className='w-full h-3/6 border rounded-xl
-      lg:w-6/12 lg:h-full flex justify-center items-center p-16'>
-        <div className='flex flex-col w-9/12 gap-2 md:gap-5'>
+    <div className='w-full h-3/6 rounded-r-xl
+      lg:w-6/12 lg:h-full flex justify-center items-center p-14'>
+        
+        <div className='flex flex-col w-10/12 gap-2 md:gap-5'>
 
-          <h1 className='font-bold text-center mb-2 text-lg md:text-5xl'>Welcome!</h1>
+          <h1 className='font-bold text-center mb-2 text-2xl md:text-5xl'>
+            Welcome!
+          </h1>
 
           <input type='username'
-            className='rounded-lg h-6 text-sm text-center md:h-10 md:text-xl md:py-5'
+            className='rounded-lg h-8 text-lg text-center md:h-10 md:text-2xl md:py-5'
             placeholder='Enter Username'
             onChange={(e) =>
             setNewUser({ ...newUser, username: e.target.value })} />
 
           <input type='email'
-            className='rounded-lg h-6 text-sm text-center md:h-10 md:text-xl md:py-5'
+            className='rounded-lg h-8 text-lg text-center md:h-10 md:text-2xl md:py-5'
             placeholder='Enter Email'
             onChange={(e) =>
             setNewUser({ ...newUser, email: e.target.value })} />
 
           <input type='password'
-            className='rounded-lg h-6 text-sm text-center md:h-10 md:text-xl md:py-5'
+            className='rounded-lg h-8 text-lg text-center md:h-10 md:text-2xl md:py-5'
             placeholder='Enter Password'
             onChange={(e) =>
             setNewUser({ ...newUser, password: e.target.value })} />
 
-          <button className='border rounded-lg h-6 text-sm md:h-10 md:text-xl' onClick={handleCreateUser}>Register</button>
-          <a href='/login' className='text-[11px] md:text-lg'>Have an account?</a>
+          <button className='text-black border rounded-lg h-10 text-lg md:h-12 md:text-xl bg-[#d0c3ae]
+          hover:scale-105 duration-500'
+          onClick={handleCreateUser}>
+            Register
+          </button>
 
-          <p>{errorMsg}</p>
+          <a href='/login' className='mt-4 text-[15px] md:text-lg text-blue-400
+          hover:underline'>
+            Have an account?
+          </a>
+
+          <p className='text-[15px] md:text-md text-red-400'>{errorMsg}</p>
 
         </div>
     </div>

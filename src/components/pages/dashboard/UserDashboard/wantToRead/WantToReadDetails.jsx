@@ -81,7 +81,7 @@ const WantToReadDetails = () => {
         <UserNavbar />
 
         <div className='bg-[#E4DCCF] w-full flex flex-col justify-center mt-[60px] md:mt-[85px]
-        gap-2'>
+        gap-3'>
 
         <div className=' flex flex-row text-lg md:text-2xl py-4 px-4 gap-4'>
               <GoChevronLeft
@@ -93,33 +93,41 @@ const WantToReadDetails = () => {
         </div>
 
         {userBooks.map((book) => (
-            <div key={book.id} className='h-[160px] rounded-md flex flex-row gap-5 border-b-2 border-[#BFB29E]'>
+        <div key={book.id}
+            className='rounded-md flex flex-row gap-5 border-b-2 border-[#BFB29E]
+            h-[160px] md:h-[220px]
+            p-2 py-2 md:px-6 2xl:px-[70px]
+            duration-500'>
                 <div className='flex justify-center items-center'>
                     <img alt='book cover'
-                    className='w-9/12'
+                    className='w-[80px] md:w-[120px]'
                     src={book.volumeInfo.imageLinks.smallThumbnail}></img>
                 </div>
 
                 <div className='flex flex-col justify-center items-start'>
                     <div className='flex flex-col'>
-                    <h2 className='font-bold text-md md:text-lg'>{book.volumeInfo.title}</h2>
-                    <p className='text-sm md:text-md'>by {book.volumeInfo.authors}</p>
-                </div>
+                        <h2 className='font-bold text-md md:text-xl'>{book.volumeInfo.title}</h2>
+                        <p className='text-sm md:text-lg'>by {book.volumeInfo.authors[0]}</p>
+                    </div>
 
-                <div className='flex flex-col text-sm md:text-md mt-2 gap-1'>
-                    <button
-                    className='bg-[#6A9C89] text-white border rounded-lg py-1 px-2'
-                    onClick={() => handleAddCurrentlyReading(book)}
-                    >
-                    +Currently Reading
-                    </button>
+                    <div className='flex flex-col text-sm md:text-lg mt-2 gap-1'>
+                        <button
+                        className='text-white border rounded-lg py-1 px-2
+                        bg-[#6A9C89] hover:bg-[#527a6b] hover:scale-105
+                        duration-500'
+                        onClick={() => handleAddCurrentlyReading(book)}
+                        >
+                        + Currently Reading
+                        </button>
 
-                    <button
-                    className='w-10/12 bg-gray-400 text-white border rounded-lg p-1'
-                    onClick={() => handleRemoveBook(book)}>
-                    Remove Book
-                    </button>
-                </div>
+                        <button
+                        className='w-10/12 text-white border rounded-lg p-1
+                        bg-gray-400 hover:bg-gray-500 hover:scale-105
+                        duration-500'
+                        onClick={() => handleRemoveBook(book)}>
+                        Remove Book
+                        </button>
+                    </div>
 
           </div>
         </div>

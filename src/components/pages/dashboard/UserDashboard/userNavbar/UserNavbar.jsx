@@ -74,15 +74,17 @@ const UserNavbar = () => {
                 </div>
                 <div className='flex flex-row gap-4'>
                   <button 
-                  className='text-white py-2 px-2 rounded-md
-                  bg-gray-400'
+                  className='text-white py-2 px-3 rounded-md
+                  bg-gray-400 hover:bg-gray-500 hover:scale-105
+                  duration-500'
                   onClick={() => setToggleLogoutModal(false)}>
                     Cancel
                   </button>
 
                   <button 
-                  className='text-white py-2 px-2 rounded-md
-                  bg-red-400'
+                  className='text-white py-2 px-3 rounded-md
+                  bg-red-400 hover:bg-red-600 hover:scale-105
+                  duration-500'
                   onClick={handleLogout}
                   >Logout
                   </button>
