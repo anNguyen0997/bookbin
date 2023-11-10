@@ -113,15 +113,25 @@ const UserHome = () => {
                     className='flex flex-row items-center justify-start h-[120px]
                     p-2 gap-4 border border-[#BFB29E] rounded-md
                     md:p-4 md:h-[190px]'>
-                        <div>
+                        {book.volumeInfo && book.volumeInfo.imageLinks && book.volumeInfo.imageLinks.smallThumbnail && (
+                            <img
+                            src={book.volumeInfo.imageLinks.smallThumbnail} 
+                            className='w-[55px] md:w-[110px]'
+                            alt={`Thumbnail for ${book.volumeInfo.title}`}
+                            />
+                        )}
+                        {/* <div>
                             <img alt='book cover'
                             src={book.volumeInfo.imageLinks.smallThumbnail} 
                             className='w-[55px] md:w-[110px]' />
-                        </div>
+                        </div> */}
                     
                         <div className='text-sm md:text-lg'>
                             <h1 className='font-bold'>{book.volumeInfo.title}</h1>
-                            <p >by {book.volumeInfo.authors[0]}</p>
+                            {book.volumeInfo.authors && book.volumeInfo.authors.length > 0 && (
+                                <p>by {book.volumeInfo.authors[0]}</p>
+                            )}
+                            {/* <p >by {book.volumeInfo.authors[0]}</p> */}
                             <div className='flex text-sm md:text-[16px] 2xl:text-[20px] gap-2 my-2'>
                                 <button 
                                     className='bg-[#6A9C89] border border-[#6A9C89] rounded-md text-white

@@ -7,8 +7,9 @@ const Login = () => {
     <div className='w-full h-screen flex items-center justify-center'>
 
       <div className='bg-[#ece7df] w-11/12 h-5/6 rounded-xl border
-      lg:flex 
-      2xl:w-7/12 2xl:h-4/6 duration-500'>
+      lg:flex duration-500
+      md:w-10/12 md:h-3/6
+      2xl:w-7/12 2xl:h-4/6'>
 
         <div className='w-full h-3/6 rounded-xl
           lg:w-6/12 lg:h-full'>
