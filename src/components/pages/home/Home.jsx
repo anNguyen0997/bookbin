@@ -5,6 +5,7 @@ import UserHome from '../dashboard/UserDashboard/userHome/UserHome'
 import UserSearch from '../dashboard/UserDashboard/userHome/UserSearch'
 import { auth } from '../../../config/firebase'
 import { onAuthStateChanged } from 'firebase/auth'
+import genreList from '../genreList'
 
 const Home = () => {
     const [user, setUser] = useState(null)
@@ -12,16 +13,12 @@ const Home = () => {
 
     const baseURL = 'https://www.googleapis.com/books/v1/volumes?'
     const API_KEY = 'AIzaSyAxCTsiPg28jac0Tufu0V1PNzTmc7cNc0A'
-    const genres = [
-      'mystery', 'fantasy', 'romance', 'thriller', 'horror',
-      'fiction', 'nonfiction', 'travel', 'science', 'history', 'self-help'
-    ]
-    const randomGenres = genres[Math.floor(Math.random() * genres.length)]
+    const randomGenre = genreList()
     const [genreResult, setGenreResult] = useState('')
 
     const callapi = () => {
-        setGenreResult(randomGenres)
-        axios.get(`${baseURL}q=subject:${randomGenres}&printType=books&orderBy=newest&maxResults=24&key=${API_KEY}`)
+        setGenreResult(randomGenre)
+        axios.get(`${baseURL}q=subject:${randomGenre}&printType=books&orderBy=newest&maxResults=24&key=${API_KEY}`)
         .then(res => {
             const data = res.data.items
             setBooks(data)

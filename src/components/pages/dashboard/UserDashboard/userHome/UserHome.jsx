@@ -4,20 +4,20 @@ import { arrayUnion, doc, getDoc, updateDoc } from 'firebase/firestore'
 import { db, auth } from '../../../../../config/firebase'
 import UserNavbar from '../userNavbar/UserNavbar'
 import UserSearch from './UserSearch'
+import genreList from '../../../genreList'
 
 const UserHome = () => {
     const [books, setBooks] = useState([])
     const [userData, setUserData] = useState({})
 
     const baseURL = 'https://www.googleapis.com/books/v1/volumes?'
-    const API_KEY = 'AIzaSyAxCTsiPg28jac0Tufu0V1PNzTmc7cNc0A' 
-    const genres = ['mystery', 'fantasy', 'romance', 'thriller', 'horror', 'fiction', 'nonfiction', 'travel', 'science', 'history', 'self-help']
-    const randomGenres = genres[Math.floor(Math.random() * genres.length)]
+    const API_KEY = 'AIzaSyAxCTsiPg28jac0Tufu0V1PNzTmc7cNc0A'
+    const randomGenre = genreList()
     const [genreResult, setGenreResult] = useState('')
 
     const callAPI = () => {
-        setGenreResult(randomGenres)
-        axios.get(`${baseURL}q=subject:${randomGenres}&printType=books&orderBy=newest&maxResults=24&key=${API_KEY}`)
+        setGenreResult(randomGenre)
+        axios.get(`${baseURL}q=subject:${randomGenre}&printType=books&orderBy=newest&maxResults=24&key=${API_KEY}`)
         .then(res => {
             const data = res.data.items
             setBooks(data)
