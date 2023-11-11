@@ -8,22 +8,39 @@ import { auth } from '../../../../../config/firebase'
 
 const UserProfile = () => {
   const [authenticated, setAuthenticated] = useState(false)
+  const [loading, setLoading] = useState(true)
+
+  // useEffect(() => {
+  //   auth.onAuthStateChanged((user) => {
+  //     if (user) {
+  //       setAuthenticated(true)
+  //       // console.log(`${user.email} is authenticated`)
+  //     } else {
+  //       setAuthenticated(false)
+  //       // console.log('no authenticated users')
+  //     }
+  //   })
+  // }, [])
 
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        setAuthenticated(true)
-        // console.log(`${user.email} is authenticated`)
+        setAuthenticated(true);
       } else {
-        setAuthenticated(false)
-        // console.log('no authenticated users')
+        setAuthenticated(false);
       }
-    })
-  }, [])
+      setLoading(false); // Set loading to false once the authentication status is determined
+    });
 
-  return (
+    return () => unsubscribe(); // Cleanup the subscription on unmount
+  }, []);
 
-    (authenticated ? (
+  if (loading) {
+    // Handle the loading state while authentication status is being determined
+    return <div>Loading...</div>;
+  }
+
+  return authenticated ? (
       <div className='flex flex-col'>
 
       <UserNavbar />
@@ -39,7 +56,7 @@ const UserProfile = () => {
               {/* WANT TO READ */}
               <WantToRead />
 
-              {/* HAVE READ */}
+              {/* HAVE READ */} 
               <HaveRead />
 
               {/* <div className='flex justify-center items-center'>
@@ -51,9 +68,7 @@ const UserProfile = () => {
     </div>
     ) : (
       <Home />
-    ))
-
-  )
+    )
 }
 
 export default UserProfile
