@@ -36,7 +36,7 @@ const RegisterForm = () => {
         
         await setDoc(doc(db, 'users', credentials.user.uid), newUser)
         navigate('/login')
-        console.log(credentials)
+        // console.log(credentials)
       } catch (error) {
         switch (error.code) {
           case 'auth/invalid-email':

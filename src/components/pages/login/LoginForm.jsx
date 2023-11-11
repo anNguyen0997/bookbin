@@ -15,10 +15,10 @@ const LoginForm = () => {
 
     try {
        const credentials = await signInWithEmailAndPassword(auth, email, password)
-      console.log(credentials)
-       setTimeout(async () => {
+        // console.log(credentials)
+        setTimeout(async () => {
         await signOut(auth)
-        console.log('user auto-logged out')
+        // console.log('user auto-logged out')
        }, 1 * 60 * 60 * 1000)
        navigate('/-profile')
     } catch (error) {

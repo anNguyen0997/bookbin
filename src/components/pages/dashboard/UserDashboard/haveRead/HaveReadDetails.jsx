@@ -14,10 +14,10 @@ const HaveReadDetails = () => {
         const docSnap = await getDoc(userReference)
 
         if (docSnap.exists()) {
-            console.log(docSnap.data())
+            // console.log(docSnap.data())
             setUserBooks(docSnap.data().haveRead)
         } else {
-            console.log('this user does not exist')
+            console.log('no user')
         }
     }
 
@@ -28,7 +28,7 @@ const HaveReadDetails = () => {
                 haveRead: arrayRemove(book)
             })
             updateUserBooks()
-            console.log('book removed successfully')
+            // console.log('book removed successfully')
         } catch (err) {
             console.log(err)
         }

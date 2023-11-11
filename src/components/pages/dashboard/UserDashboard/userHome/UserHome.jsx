@@ -21,7 +21,7 @@ const UserHome = () => {
         .then(res => {
             const data = res.data.items
             setBooks(data)
-            console.log(data)
+            // console.log(data)
         })
         .catch(err => console.log(err))
     }
@@ -31,7 +31,7 @@ const UserHome = () => {
         const docSnap = await getDoc(userReference)
 
         if (docSnap.exists()) {
-            console.log(docSnap.data())
+            // console.log(docSnap.data())
             setUserData(docSnap.data())
         } else {
             console.log('there are no users')
@@ -43,7 +43,7 @@ const UserHome = () => {
         .then(res => {
             const data = res.data.items
             setBooks(data)
-            console.log(data)
+            // console.log(data)
         })
         .catch(err => console.log('error'))
     }

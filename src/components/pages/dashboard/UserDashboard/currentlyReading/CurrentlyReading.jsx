@@ -55,7 +55,7 @@ const CurrentlyReading = () => {
         } catch (err) {
           console.log(err)
         }
-        console.log('Book is already in haveRead list')
+        // console.log('Book is already in haveRead list')
       }
     }
 
@@ -71,7 +71,7 @@ const CurrentlyReading = () => {
         auth.onAuthStateChanged(user => {
             if (user) {
               setUserDisplayName(user.displayName)
-              console.log(user)
+              // console.log(user)
               getUserData()
             } else {
               console.log('there are no users signed in')

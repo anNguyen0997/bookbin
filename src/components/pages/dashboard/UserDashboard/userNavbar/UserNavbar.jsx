@@ -16,10 +16,8 @@ const UserNavbar = () => {
     setMenuToggle(!menuToggle)
   }
 
-
   const handleLogout = () => {
     auth.signOut().then(() => {
-      console.log('user logged out')
       navigate('/')
     })
   }

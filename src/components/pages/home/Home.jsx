@@ -11,8 +11,8 @@ const Home = () => {
     const [user, setUser] = useState(null)
     const [books, setBooks] = useState([])
 
-    const baseURL = 'https://www.googleapis.com/books/v1/volumes?'
-    const API_KEY = 'AIzaSyAxCTsiPg28jac0Tufu0V1PNzTmc7cNc0A'
+    const baseURL = process.env.REACT_APP_API_URL
+    const API_KEY = process.env.REACT_APP_API_KEY
     const randomGenre = genreList()
     const [genreResult, setGenreResult] = useState('')
 
@@ -31,7 +31,6 @@ const Home = () => {
       .then(res => {
           const data = res.data.items
           setBooks(data)
-          console.log(data)
       })
       .catch(err => console.log('error'))
     }
