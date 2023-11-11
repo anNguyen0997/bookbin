@@ -11,14 +11,14 @@ const Home = () => {
     const [user, setUser] = useState(null)
     const [books, setBooks] = useState([])
 
-    const baseURL = process.env.REACT_APP_API_URL
+    const API_URL = process.env.REACT_APP_API_URL
     const API_KEY = process.env.REACT_APP_API_KEY
     const randomGenre = genreList()
     const [genreResult, setGenreResult] = useState('')
 
     const callapi = () => {
         setGenreResult(randomGenre)
-        axios.get(`${baseURL}q=subject:${randomGenre}&printType=books&orderBy=newest&maxResults=24&key=${API_KEY}`)
+        axios.get(`${API_URL}q=subject:${randomGenre}&printType=books&orderBy=newest&maxResults=24&key=${API_KEY}`)
         .then(res => {
             const data = res.data.items
             setBooks(data)
@@ -27,7 +27,7 @@ const Home = () => {
     }
 
     const handleSearch = (userSearch) => {
-      axios.get(`${baseURL}q=${userSearch}&printType=books&orderBy=relevance&maxResults=20&key=${API_KEY}`)
+      axios.get(`${API_URL}q=${userSearch}&printType=books&orderBy=relevance&maxResults=20&key=${API_KEY}`)
       .then(res => {
           const data = res.data.items
           setBooks(data)

@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { db } from '../../../config/firebase'
 import { setDoc, doc } from 'firebase/firestore'
 import { auth } from '../../../config/firebase'
-import { createUserWithEmailAndPassword, updateProfile, signOut } from 'firebase/auth'
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 
 const RegisterForm = () => {
   const navigate = useNavigate()
