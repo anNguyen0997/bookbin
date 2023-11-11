@@ -8,10 +8,10 @@ import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
 const RegisterForm = () => {
   const navigate = useNavigate()
 
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
   const [newUser, setNewUser] = useState({
-    email: '',
     username: '',
-    password: '',
     currentlyReading: [],
     haveRead: [],
     wantToRead: []
@@ -28,7 +28,7 @@ const RegisterForm = () => {
       setErrorMsg('Please enter a username')
     } else {
       try {
-        const credentials = await createUserWithEmailAndPassword(auth, newUser.email, newUser.password)
+        const credentials = await createUserWithEmailAndPassword(auth, email, password)
         const user = credentials.user
         await updateProfile(user, {
           displayName: newUser.username
@@ -76,14 +76,12 @@ const RegisterForm = () => {
           <input type='email'
             className='rounded-lg h-8 text-lg text-center md:h-10 md:text-2xl md:py-5'
             placeholder='Enter Email'
-            onChange={(e) =>
-            setNewUser({ ...newUser, email: e.target.value })} />
+            onChange={(e) => setEmail(e.target.value)} />
 
           <input type='password'
             className='rounded-lg h-8 text-lg text-center md:h-10 md:text-2xl md:py-5'
             placeholder='Enter Password'
-            onChange={(e) =>
-            setNewUser({ ...newUser, password: e.target.value })} />
+            onChange={(e) => setPassword(e.target.value)} />
 
           <button className='text-black border rounded-lg h-10 text-lg md:h-12 md:text-xl bg-[#d0c3ae]
           hover:scale-105 duration-500'
