@@ -61,7 +61,8 @@ const RegisterForm = () => {
     <div className='w-full h-3/6 rounded-r-xl
       lg:w-6/12 lg:h-full flex justify-center items-center p-14'>
         
-        <div className='flex flex-col w-10/12 gap-2 md:gap-5'>
+        <form className='flex flex-col w-10/12 gap-2 md:gap-5'
+        onSubmit={handleCreateUser}>
 
           <h1 className='font-bold text-center mb-2 text-2xl md:text-5xl'>
             Welcome!
@@ -96,7 +97,7 @@ const RegisterForm = () => {
 
           <p className='text-[15px] md:text-md text-red-400'>{errorMsg}</p>
 
-        </div>
+        </form>
     </div>
   )
 }

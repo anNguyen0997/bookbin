@@ -38,8 +38,16 @@ const Navbar = () => {
                 {
                     links.map((link) => (
                         <li key={link.name} 
-                        className=' text-sm py-3 px-4 md:text-xl hover:scale-105 duration-500'>
-                            <Link to={link.link}>{link.name}</Link>
+                        className=' text-sm py-3 px-4 md:text-xl group transition-all ease-in-out duration-200'>
+                            <Link to={link.link}>
+
+                              <span className="bg-left-bottom bg-gradient-to-r from-white to-white 
+                              bg-[length:0%_3px] bg-no-repeat group-hover:bg-[length:100%_3px] 
+                              transition-all duration-500 ease-out">
+                              {link.name}
+                              </span>
+                              
+                            </Link>
                         </li>
                     ))
                 }
