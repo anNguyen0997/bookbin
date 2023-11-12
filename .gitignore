@@ -8,6 +8,7 @@
 .env
 .firebaserc
 firebase.json
+/config
 
 # testing
 /coverage

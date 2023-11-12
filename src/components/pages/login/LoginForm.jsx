@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { auth } from '../../../config/firebase'
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth'
 
@@ -72,11 +72,11 @@ const LoginForm = () => {
                   Login
               </button>
 
-              <a href='/register' 
+              <Link to='/register' 
                 className='mt-4 text-[15px] md:text-lg text-blue-400
                 hover:underline'>
                   Don't have an account?
-              </a>
+              </Link>
 
               <p className='text-[15px] md:text-md text-red-400'>{errorMsg}</p>
 

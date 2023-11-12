@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import { db } from '../../../config/firebase'
 import { setDoc, doc } from 'firebase/firestore'
 import { auth } from '../../../config/firebase'
@@ -90,10 +90,10 @@ const RegisterForm = () => {
             Register
           </button>
 
-          <a href='/login' className='mt-4 text-[15px] md:text-lg text-blue-400
+          <Link to='/login' className='mt-4 text-[15px] md:text-lg text-blue-400
           hover:underline'>
             Have an account?
-          </a>
+          </Link>
 
           <p className='text-[15px] md:text-md text-red-400'>{errorMsg}</p>
 
