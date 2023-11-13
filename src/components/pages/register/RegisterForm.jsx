@@ -19,7 +19,9 @@ const RegisterForm = () => {
 
   const [errorMsg, setErrorMsg] = useState('')
 
-  const handleCreateUser = async () => {
+  const handleCreateUser = async (e) => {
+    e.preventDefault()
+
     setNewUser({ ...newUser, haveRead: [] })
     setNewUser({ ...newUser, wantToRead: [] })
     setNewUser({ ...newUser, currentlyReading: [] })
@@ -33,8 +35,8 @@ const RegisterForm = () => {
         await updateProfile(user, {
           displayName: newUser.username
         })
-        
         await setDoc(doc(db, 'users', credentials.user.uid), newUser)
+        
         navigate('/login')
         // console.log(credentials)
       } catch (error) {

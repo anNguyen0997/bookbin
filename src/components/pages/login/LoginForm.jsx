@@ -37,6 +37,7 @@ const LoginForm = () => {
           setErrorMsg('An error occured during login')
       }
     }
+
   }
   
   return (
