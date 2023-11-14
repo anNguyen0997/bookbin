@@ -11,18 +11,31 @@ Readers can create an account or log into an existing one to discover, save, and
 
 ### User Dashboard
 The dashboard will showcase the reader's 'Currently Reading', 'Want to Read', 'Have Read' books.
+###
+<img src='./src/assets/images/Screenshot (138).png' height="100" width="100"></img>
+<img src='./src/assets/images/Screenshot (144).png' height="100" width="100"></img>
 
 ### Currently Reading
 An implemented carousel feature for viewing the reader's 'Currently Reading' books.
+###
 
 ### Want to Read
 This section displays the list of books the reader plans on reading with options to remove or add books to 'Currently Reading'
+###
+<img src='./src/assets/images/Screenshot (139).png' height="100" width="100"></img>
+<img src='./src/assets/images/Screenshot (145).png' height="100" width="100"></img>
 
 ### Have Read
 This section lists the books readers have completed reading with the option to remove books.
+###
+<img src='./src/assets/images/Screenshot (146).png' height="100" width="100"></img>
+<img src='./src/assets/images/Screenshot (140).png' height="100" width="100"></img>
 
 ### User Home
 The User Home, based on Google Books API querying, recommends various new books from the seleceted genre. The search functionality allows readers to find specific books and add them to their 'Currently Reading' or 'Have Read' lists.
+###
+<img src='./src/assets/images/Screenshot (142).png' height="100" width="100"></img>
+<img src='./src/assets/images/Screenshot (143).png' height="100" width="100"></img>
 
 ## Tech Stack
 - React
