@@ -6,8 +6,8 @@
 ### Register/Login
 Readers can create an account or log into an existing one to discover, save, and track books.
 ###
-<img src='./src/assets/images/Screenshot (147).png' height="100" width="100"></img>
-<img src='./src/assets/images/Screenshot (137).png' height="100" width="100"></img>
+<img src='./src/assets/images/Screenshot (147).png' height="200" width="240"></img>
+<img src='./src/assets/images/Screenshot (137).png' height="200" width="160"></img>
 
 ### User Dashboard
 The dashboard will showcase the reader's 'Currently Reading', 'Want to Read', 'Have Read' books.
