@@ -1,6 +1,6 @@
 # BookBin
 ## Overview
-[Bookbin] (https://appbookbin.netlify.app/) is an application and designed for book enjoyers to discover new books, log, track, and manage their reading lists. Readers can register, log in, and organize books into 'Currently Reading,' 'Want to Read,' and 'Have Read' lists.
+[Bookbin][https://appbookbin.netlify.app/]is an application and designed for book enjoyers to discover new books, log, track, and manage their reading lists. Readers can register, log in, and organize books into 'Currently Reading,' 'Want to Read,' and 'Have Read' lists.
 
 ## Key Features
 ### Register/Login
