@@ -58,8 +58,9 @@ const WantToRead = () => {
                 </div>
 
                 <button
-                    className='bg-[#BFB29E] text-white rounded-lg 
-                    p-2 mt-4
+                    className='text-white rounded-lg 
+                    p-2 mt-4 bg-[#ccc2b3] hover:bg-[#bfb29e] duration-500
+                    hover:scale-105
                     text-sm md:text-xl'
                     onClick={() => navigate('/-wanttoread')}> 
                     Show More

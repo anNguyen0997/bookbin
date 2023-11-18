@@ -4,6 +4,7 @@ import HaveRead from '../haveRead/HaveRead'
 import CurrentlyReading from '../currentlyReading/CurrentlyReading'
 import UserNavbar from '../userNavbar/UserNavbar'
 import Home from '../../../home/Home'
+import UserFavoriteGenres from './UserFavoriteGenres'
 import { auth } from '../../../../../config/firebase'
 
 const UserProfile = () => {
@@ -42,9 +43,9 @@ const UserProfile = () => {
               {/* HAVE READ */}
               <HaveRead />
 
-              {/* <div className='flex justify-center items-center'>
-                Favorite genres
-              </div> */}
+              {/* FAVORITE GENRES */}
+              {/* <UserFavoriteGenres /> */}
+
           </div>
 
       </div>

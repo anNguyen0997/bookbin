@@ -120,28 +120,25 @@ const UserHome = () => {
                             alt={`Thumbnail for ${book.volumeInfo.title}`}
                             />
                         )}
-                        {/* <div>
-                            <img alt='book cover'
-                            src={book.volumeInfo.imageLinks.smallThumbnail} 
-                            className='w-[55px] md:w-[110px]' />
-                        </div> */}
-                    
+ 
                         <div className='text-sm md:text-lg'>
                             <h1 className='font-bold'>{book.volumeInfo.title}</h1>
                             {book.volumeInfo.authors && book.volumeInfo.authors.length > 0 && (
                                 <p>by {book.volumeInfo.authors[0]}</p>
                             )}
-                            {/* <p >by {book.volumeInfo.authors[0]}</p> */}
+                            
                             <div className='flex text-sm md:text-[16px] 2xl:text-[20px] gap-2 my-2'>
                                 <button 
-                                    className='bg-[#6A9C89] border border-[#6A9C89] rounded-md text-white
-                                    py-1 px-2 md:py-2 md:px-3'
+                                    className='bg-[#75a392] hover:bg-[#6A9C89] rounded-md text-white
+                                    py-1 px-2 md:py-2 md:px-3 duration-500
+                                    hover:scale-105'
                                     onClick={() => handleBookToWantToRead(book)}>
                                     Want to Read
                                 </button>
                                 <button 
-                                    className='bg-[#6A9C89] border border-[#6A9C89] rounded-md text-white
-                                    py-1 px-2 md:py-2 md:px-3'
+                                    className='bg-[#75a392] hover:bg-[#6A9C89] rounded-md text-white
+                                    py-1 px-2 md:py-2 md:px-3 duration-500
+                                    hover:scale-105'
                                     onClick={() => handleBookHaveRead(book)}>
                                     Have Read
                                 </button>
